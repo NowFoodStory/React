@@ -1,0 +1,561 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+.notoSans{ /*思源黑*/
+    font-family: "Noto Sans TC", sans-serif;
+}
+.cwTeXYen{
+    font-family: "cwTeXYen",sans-serif;
+}
+.transition{
+    transition: 1s;
+}
+.text_decoration{
+    text-decoration: none;
+}
+.vertical{
+    vertical-align: middle;
+}
+.opacity{ /*註冊登入表單用*/
+    opacity:0;
+    transition: 1s;
+    transform: translateY(-500px);
+}
+.opacity_0{
+    opacity:0;
+}
+.navbar{
+    transition: .5s;
+}
+.navbar.hide_nav{ 
+    transform: translateY(-100px);
+}
+.upper:hover{
+    transform: translateY(-10px);
+    box-shadow: 0px 2px 3px 0 rgba(0,0,0,.16);
+}
+.line_height{
+    line-height: 2rem;
+}
+.z_index{
+    z-index: 5;
+}
+.over_flow{
+    overflow: hidden;
+}
+.font_300{
+    font-weight: 300;
+}
+.font_500{
+    font-weight: 500;
+}
+.font_600{
+    font-weight: 600;
+}
+.font_0{
+    font-size:0.875rem;
+}
+.font_1{
+    font-size:1.1rem;
+}
+.font_2{
+    font-size:1.3rem;
+}
+.font_3{
+    font-size:1.5rem;
+}
+.font_4{
+    font-size:1.8rem;
+}
+.font_5{
+    font-size:3rem;
+}
+.logo_border{ 
+    border: 2px solid white;
+    border-radius: 5px;
+}
+.btn_border{ /*首頁線框按鈕*/
+    border: 1px solid #73D9B7;
+    color: #73D9B7;
+    padding:1.2rem 1rem;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.btn_border2{ /*白字白框 註冊時旁邊的按鈕*/
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    padding: 0.6rem;
+}
+.btn_solid{ /*首頁實心按鈕*/
+    background: #73D9B7;
+    color: white;
+    padding:1.2rem 1rem;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+}
+.btn_solid1{ /*查看商品按鈕  付款方式視窗的確認按鈕*/
+    background: #73D9B7;
+    color: white;
+    padding:0.6rem 1.8rem;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+.btn_solid1:hover{ /*查看商品按鈕*/
+    background: rgb(120, 224, 189);
+    color: white;
+    text-decoration: none;
+}
+.btn_solid2{ /* 資訊 評論 地圖 按鈕 */
+    background: #73D9B7;
+    color: white;
+}
+.btn_solid3{ /*結帳按鈕 註冊會員submit按鈕*/
+    background: #73D9B7;
+    color: white;
+    padding:0.4rem 5rem;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+.btn_solid3:hover{ /*結帳按鈕*/
+    background: rgb(120, 224, 189);
+    color: white;
+    text-decoration: none;
+}
+.btn_solid4{ /*訂單紀錄 詳細資訊按鈕*/
+    background: #73D9B7;
+    color: white;
+    padding:0.4rem 1.2rem;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+.btn_solid4:hover{
+    background: rgb(120, 224, 189);
+    color: white;
+}
+.btn_delete{
+    background: #dc3545;
+    color: white;
+    padding:0.4rem 1.2rem;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+.btn_delete:hover{
+    background: #f03a4c;
+    color: white;
+}
+.btn_cancel2{ /*取消按鈕*/
+    background: #707070;
+    border-radius: 3px;
+    padding:0.4rem 1.2rem;
+    color: white;
+}
+.btn_credit{ /*新增信用卡按鈕*/
+    background: #73D9B7;
+    color: white;
+    padding: 0.2rem 0;
+    border-radius: 3px;
+}
+.btn_credit:hover{ /*新增信用卡按鈕*/
+    background: rgb(120, 224, 189);
+    color: white;
+
+}
+.btn_num{ /*商品增減按鈕*/
+    background: #73D9B7;
+    border-radius: 50%;
+    color: white;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    line-height: 28px;
+}
+.btn_pay{ /*付款方式按鈕*/
+    border: 1px solid #707070;
+    border-radius: 3px;
+    padding:0.6rem 0.8rem;
+}
+.btn_cancel{
+    border: 1px solid #707070;
+    border-radius: 3px;
+    padding: 0.2rem 0;
+}
+.btn_orange{ /*付款方式選取後變橘色*/
+    border:1px solid #E7711B;
+    color: #E7711B;
+}
+.color_white{
+    color: white;
+}
+.color_blue{ /*編輯 按鈕*/
+    color: #0055AA;
+}
+.color_red{
+    color: red;
+}
+.color_green{
+    color:#73D9B7;
+    text-decoration: none;
+}
+.color_green:hover{ /*會員中心 取貨未取貨*/
+    color:#73D9B7;
+    text-decoration: none;
+}
+.color_white:hover{
+    color: white;
+}
+.color_black{
+    color:#212529;
+}
+.color_black:hover{
+    color:#212529;
+    text-decoration: none;
+}
+.color_orange{
+    color: #E7711B;
+}
+.hover_orange:hover{
+    color: #E7711B;
+}
+.color_70{ /*基本字顏色*/
+    color: #707070;
+}
+.color_70:hover{
+    color: #707070;
+    text-decoration: none;
+}
+.opacity_50{
+    opacity: .8;
+}
+.border_bottom{
+    border-bottom: 2px solid #E7711B;
+    position: relative;
+    padding-bottom: 2px;
+    bottom: 5px;
+}
+.translate{
+    transform:translate(30%,30%)
+}
+.letter_space{
+    letter-spacing:0.05rem;
+}
+.letter_space1{
+    letter-spacing:0.1rem;
+}
+.letter_space2{
+    letter-spacing:0.2rem;
+}
+.reset{
+    margin:0;
+    padding:0;
+}
+.nav_color{ /*navbar背景色*/
+    background:#73D9B7;
+}
+.left_0{
+    left: 0;
+}
+.top_0{ /*navbar用 */
+    top: 0;
+    z-index: 5;
+}
+.bottom_0{ /*結帳用 */
+    bottom: 0;
+    z-index: 5;
+}
+.right_0{
+    right: 0;
+}
+.top_17{ /*註冊表單用*/
+    top: 17%;
+}
+.top_30{ /*註冊表單用*/
+    top: 30%;
+}
+.relative{
+    position: relative;
+}
+.absolute{
+    position: absolute;
+}
+.bottom_0{ /*結帳用 */
+    bottom: 0;
+    z-index: 5;
+}
+.pt_72{
+    padding-top: 72px;
+}
+.px_10{
+    padding: 0 10%;
+}
+.pr_10{
+    padding: 0 10% 0 0;
+}
+.pl_33{
+    padding: 0 0 0 33%;
+}
+.pl_10{
+    padding: 0 0 0 10vw;
+}
+.right_30{ /*註冊愛心用戶表格定位用*/
+    right:30%;
+}
+.mx_10{
+    margin: 0 10%;
+}
+.mt_15vh{ /*橫幅店名置中用*/
+    margin-top: 15vh;
+}
+.vh_100{
+    height: 100vh !important;
+}
+.vh_25{ /*商品清單用*/
+    height: 25vh;
+    overflow: hidden;
+}
+.vh_20{ /*店家商店資訊 封面照片*/
+    height: 20vh;  
+}
+.vh_40{ /*店家橫幅用 */
+    height: 40vh;
+    overflow: hidden;
+}
+.vh_50{ /*註冊頁面透明黑背景 */
+    height: 50vh;
+    overflow: hidden;
+}
+.vh_65{ /*首頁專欄照片用*/
+    height: 65vh;
+}
+.vh_75{ /*會員中心左邊用*/
+    height: 75vh;
+}
+.w_25{
+    width: 25%;
+}
+.w_100{
+    width: 100%;
+}
+.h_100{
+    height: 100%;
+}
+.company_bg{
+    background: url(images/louisa_bg.jpg) no-repeat 50% 50%;
+    background-size: 100%;
+}
+.home_bg{ /*首頁背景圖*/
+    background: url(images/home/map.png) no-repeat 50% 100%;
+    background-size: 100%;
+}
+.gray_bg{ /*淡灰背景 篩選器用*/
+    background: #F8F9FA;
+    height: 100vh;
+    width: 100%;
+}
+.user_bg{ /*淡灰背景 會員中心用*/
+    background: #F8F9FA;
+    height: auto;
+    width: 100%;
+}
+.account_active{ /*一般會員會員資料*/
+    background: #F8F9FA;
+    height: auto;
+    border-right: 3px solid #FFC107;
+}
+.order_active{
+    background: #F8F9FA;
+    height: auto;
+    border-right: 3px solid #44B5FF;
+}
+.notice_active{
+    background: #F8F9FA;
+    height: auto;
+    border-right: 3px solid #FF5722;
+}
+.mail_active{
+    background: #F8F9FA;
+    height: auto;
+    border-right: 3px solid #6AA0FF;
+}
+.shop_active{
+    background: #F8F9FA;
+    height: auto;
+    border-right: 3px solid #49CBDD;
+}
+.commodity_active{
+    background: #F8F9FA;
+    height: auto;
+    border-right:3px solid #6C78E5;
+}
+.green_bg{ /*購買成功背景*/
+    background: linear-gradient(to bottom, rgba(115,217,183,1) 0%,rgba(141,230,199,1) 100%);
+}
+.signup_bg1{ /*一般用戶註冊頁面背景*/
+    background: linear-gradient(135deg, rgba(212,252,121,1) 0%,rgba(150,230,161,1) 100%);
+}
+.signup_bg2{ /*愛心用戶註冊頁面背景*/
+    background: linear-gradient(135deg, #84fab0 0%,#8fd3f4 100%);
+}
+.login_bg1{ /*登入頁面背景*/
+    background: linear-gradient(135deg, #f9f586 0%,#96fbc4 100%);
+}
+.signup_gray{ /*註冊頁面透明黑背景 */
+    background:rgba(0,0,0,.3);
+}
+.signup_white{ /*註冊表格白色背景*/
+    background: white;
+    border-radius: 5px;
+}
+.white_bg{ /*透明白色背景*/
+    background: rgba(255,255,255,.5)
+}
+.white_bg2{ /*透明白色背景*/
+    background: rgba(255, 255, 255, 0.85)
+}
+.about_bg{
+    background: linear-gradient(135deg, rgb(129, 243, 205) 0%,rgb(80, 165, 137) 100%);
+}
+.red_color{ /*愛心用*/
+    color:red;
+}
+
+.gray_form{ /*淡灰表格*/
+    background: #F8F9FA;
+}
+.search_bg{ /*搜尋icon*/
+    background: url(images/search-icon.svg) no-repeat 10% 50%;
+    background-size: 8%;
+}
+.form-control{ /*表單樣式*/
+    border-style:none none solid none;
+}
+.form-control1{ 
+    border-style:solid;
+}
+.circle{ /*店家logo用*/
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    /* border: 1px solid #707070; */
+    overflow: hidden;
+}
+.line-through{ /*刪除線*/
+    text-decoration: line-through;
+}
+.icon_size{ /*距離 時間icon */
+    height: 16px;
+}
+.icon_size1{ /*會員中心icon*/
+    height: 4vh;
+}
+.icon_size2{ /*社群icon */
+    height: 5vh;
+}
+.icon_size3{ /*購買成功icon*/
+    height: 18vh;
+}
+.text_decoration:hover{ /*login sign up用*/
+    color: white;
+    text-decoration: none;
+}
+.pointer{
+    cursor: pointer;
+}
+
+/*----- 選單hover效果 -----*/
+.btn-2 {
+    letter-spacing: 0.2rem;
+    transition: .6s;
+}
+  .btn-2:hover,
+  .btn-2:active {
+    letter-spacing: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+  
+.btn-2:after,
+.btn-2:before {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    border: 0.5px solid rgba(255, 255, 255, 0);
+    bottom: 0px;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+  
+.btn-2:hover:after,
+.btn-2:hover:before {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    border-color: #fff;
+    transition: width 350ms ease-in-out;
+    width: 100%;
+}
+  
+.btn-2:hover:before {
+    bottom: auto;
+    top: 0;
+    width: 100%;
+}
+.box_shadow{ /*購買證明 陰影*/
+    box-shadow: 0px 2px 3px 0 rgba(0,0,0,.16);
+}
+.border{
+    border: 0.5px solid #707070;
+    border-radius: 3px;
+}
+.border_left{
+    border-left: 1px solid #e8e8e8;
+}
+.commodity_border{
+    border: 2px dashed #707070;
+    transition: .3s;
+}
+.commodity_border:hover{
+    border: 2px dashed #73D9B7;
+    transition: .3s;
+}
+.box{ /*會員大頭貼用*/
+    transition: .6s;
+}
+.box:hover{ /*會員大頭貼用*/
+    background: rgba(0,0,0,.95);
+    transition: .6s;
+}
+.box:hover .picture_icon{
+    opacity: 1;
+    transition: .6s;
+    z-index: 5;
+}
+.box:hover .picture{
+    transition: .6s;
+    opacity: .5;
+}
+.picture_icon{ /*白色相片編輯ICON*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: .6s;
+    z-index: 5;
+}
+.picture{ /*會員資料大頭貼*/
+    transition: .6s;
+}
+.object_fit{
+    object-fit:cover; 
+}
+@media (max-width:991px){
+    .line{
+        display: none;
+    }
+}

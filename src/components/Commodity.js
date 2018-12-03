@@ -1,0 +1,285 @@
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
+import "../main.css";
+import logo from "../images/louisa_logo.png";
+import location from "../images/location-icon.svg";
+import time from "../images/time-icon.svg";
+import product1 from "../images/louisa_product1.jpg";
+import product2 from "../images/louisa_product2.jpg";
+import product3 from "../images/louisa_product3.jpg";
+
+import Footer from "./Footer";
+
+class Commodity extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange = (evt) => {
+    this.setState({
+        value: evt.target.value,
+    });        
+}
+
+  render() {
+    return (
+      <React.Fragment>
+        <div className="row mt-5 ml-5">
+          <div className="col">
+            <p className="notoSans font_2 letter_space1">
+              離你最近的...
+                </p>
+          </div>
+          <div className="col">
+          </div>
+          <div className="col">
+            <select className="form-control notoSans" id="place" value={this.state.value} onChange={this.handleChange}>
+              <option>最近距離</option>
+              <option>最受歡迎</option>
+              <option>最低價格</option>
+            </select>
+          </div>
+        </div>
+        {/* ------------以下為一家店------------ */}
+        <div className="row mt-3 ml-5">
+          <div className="col-2">
+            <figure className="circle figure">
+              <img className="img-fluid" src={logo}></img>
+            </figure>
+          </div>
+          <div className="col-7 pl-0 ">
+            <h5>
+              LOUISA COFFEE
+            </h5>
+            <p className="notoSans color_orange mb-1">
+              4.2★★★★☆  <span className="color_70 ml-2">(54)</span>
+            </p>
+            <p className="notoSans color_70">
+              <img className="img-fluid icon_size" src={location}></img> 150公尺  <img className="img-fluid icon_size ml-2" src={time}></img> 8.pm - 8.30pm
+            </p>
+          </div>
+          <div className="col-3 align-self-center">
+            <Link className="btn_solid1 text-center notoSans" to="/products_detail">
+              查看商品
+            </Link>
+          </div>
+        </div>
+        <div class="row ml-5 mt-3">
+          <div className="col vh_25">
+            <img src={product1} className="img-fluid w_100 "></img>
+          </div>
+          <div className="col vh_25">
+            <img src={product2} className="img-fluid d-block mx-auto w_100"></img>
+          </div>
+          <div className="col vh_25">
+            <img src={product3} className="img-fluid d-block ml-auto w_100"></img>
+          </div>
+        </div>
+        <div class="row ml-5">
+          <div className="col">
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    $65
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  櫻桃乳酪塔
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  $20
+                </p>
+              </div>
+            </div>
+                            
+          </div>
+          <div className="col">
+
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    $85
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  焦糖蘋果派
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  $25
+                </p>
+              </div>
+            </div>
+
+          </div>
+          <div className="col">
+
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    $45
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  青檸塔
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  $15
+                </p>
+              </div>
+            </div>
+          </div>          
+        </div>
+
+        <div className="row mt-2 ml-5">
+          <div className="col">
+            <hr/>
+          </div>       
+        </div>
+
+      {/* ------------以上為一家店------------ */}
+
+      {/* ------------以下為一家店------------ */}
+      <div className="row mt-3 ml-5">
+          <div className="col-2">
+            <figure className="circle figure">
+              <img className="img-fluid" src={logo}></img>
+            </figure>
+          </div>
+          <div className="col-7 pl-0">
+            <h5>
+              LOUISA COFFEE
+            </h5>
+            <p className="notoSans color_orange mb-1">
+              4.2★★★★☆  <span className="color_70 ml-2">(54)</span>
+            </p>
+            <p className="notoSans color_70">
+              <img className="img-fluid icon_size" src={location}></img> 150公尺  <img className="img-fluid icon_size ml-2" src={time}></img> 8.pm - 8.30pm
+            </p>
+          </div>
+          <div className="col-3 align-self-center">
+            <Link className="btn_solid1 text-center notoSans" to="/products_detail">
+              查看商品
+            </Link>
+          </div>
+        </div>
+        <div class="row ml-5 mt-3">
+          <div className="col vh_25">
+            <img src={product1} className="img-fluid w_100 "></img>
+          </div>
+          <div className="col vh_25">
+            <img src={product2} className="img-fluid d-block mx-auto w_100"></img>
+          </div>
+          <div className="col vh_25">
+            <img src={product3} className="img-fluid d-block ml-auto w_100"></img>
+          </div>
+        </div>
+        <div class="row ml-5">
+          <div className="col">
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    $65
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  櫻桃乳酪塔
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  $20
+                </p>
+              </div>
+            </div>
+                            
+          </div>
+          <div className="col">
+
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    $85
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  焦糖蘋果派
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  $25
+                </p>
+              </div>
+            </div>
+
+          </div>
+          <div className="col">
+
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    $45
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  青檸塔
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  $15
+                </p>
+              </div>
+            </div>
+          </div>          
+        </div>
+
+        <div className="row mt-2 ml-5">
+          <div className="col">
+            <hr/>
+          </div>       
+        </div>
+
+        {/* ------------以上為一家店------------ */}
+
+        </React.Fragment>
+        );
+      }
+    }
+  
+  export default Commodity;
