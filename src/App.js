@@ -11,6 +11,7 @@ import Nav from "./components/Nav";
 import Home from "./components/Home";
 import Products from "./components/Products";
 import Products_detail from "./components/Products_detail";
+import Products_comment from "./components/Products_comment";
 import Purchase from "./components/Purchase";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -25,6 +26,7 @@ import UserB_commodity from "./components/UserB_commodity";
 import UserB_commodity_upload from "./components/UserB_commodity_upload";
 import UserB_order from "./components/UserB_order";
 import UserB_picked from "./components/UserB_picked";
+import UserB_comment from "./components/UserB_comment";
 
 library.add(faStroopwafel);
 
@@ -37,6 +39,7 @@ class App extends Component {
           <Route path="/home" component={Home} />
           <Route path="/products" component={Products} />
           <Route path="/products_detail" component={Products_detail} />
+          <Route path="/products_comment" component={Products_comment} />
           <Route path="/purchase" component={Purchase} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
@@ -51,6 +54,7 @@ class App extends Component {
           <Route path="/userb_commodity_upload" component={UserB_commodity_upload} />
           <Route path="/userb_order" component={UserB_order} />
           <Route path="/userb_picked" component={UserB_picked} />
+          <Route path="/userb_comment" component={UserB_comment} />
         </div>
       </BrowserRouter>
     );

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../main.css";
 import Nav from "./Nav";
+import $ from "jquery";
 
 class Login extends Component {
     constructor(props) {
@@ -57,17 +58,20 @@ class Login extends Component {
             mode:'cors',
             credentials: 'include',
             body: JSON.stringify(data),
-            //body: 'user_email='+data.user_email+'&user_password='+data.user_password,
-            // body: 'user_email=only@gmail.com&user_password=123456',
             headers: {
-              //'Content-Type': 'application/json'
+              // 'Content-Type': 'application/json'
             },
-        }).then(function (response) {
-          console.log(response.json())         
+        }).then(function (response) {   
           return response.json();
         }).then(function(json){
+          console.log(json)
           console.log('成功囉');
-          // console.log(json.data_from.user_email)
+          if (json.resultCode==200){
+            $('#success').modal('show')
+          }
+          if (json.resultCode==404){
+            $('#fail').modal('show')
+          }
         }).catch(function(err) {
           console.log('失敗囉',err)
         })                
@@ -82,20 +86,27 @@ class Login extends Component {
             mode:'cors',
             credentials: 'include',
             body: JSON.stringify(data),
-            //body: 'user_email='+data.user_email+'&user_password='+data.user_password,
-            // body: 'user_email=only@gmail.com&user_password=123456',
             headers: {
               //'Content-Type': 'application/json'
             },
-        }).then(function (response) {
-          // console.log(response.json())         
+        }).then(function (response) {      
           return response.json();
         }).then(function(json){
+          console.log(json)
           console.log('成功囉');
-          // console.log(json.data_from.user_email)
+          if (json.resultCode==200){
+            $('#success').modal('show')
+          }
+          if (json.resultCode==404){
+            $('#fail').modal('show')
+          }
         }).catch(function(err) {
           console.log('失敗囉',err)
         })                
+    }
+
+    changePage = (evt) => {
+      window.location.href = "http://localhost:3001/home"
     }
     
     render() {
@@ -213,6 +224,94 @@ class Login extends Component {
                       </form>
                 </div>
                 </div>
+
+                {/* 登入成功彈出視窗 */}
+                <div
+                        class="modal fade"
+                        id="success"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="exampleModalCenterTitle"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content container-fluid">
+                            <div class="modal-header">
+                              <h5 class="modal-title notoSans font_3" id="exampleModalLongTitle">
+                                登入成功
+                              </h5>
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body row mt-3 ">
+                              
+                              <div class="col notoSans font_2">
+                                按下確認後進到首頁
+                              </div>
+                            </div>
+
+                            <div class="modal-footer row">
+                              
+                              <div class="col">
+                                <p onClick={this.changePage} data-toggle="modal" data-dismiss="modal" data-target="#confirm" class="notoSans w_100 btn_solid1 font_2 text-center pointer" to>
+                                  確認
+                                </p>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 登入失敗彈出視窗 */}
+                      <div
+                        class="modal fade"
+                        id="fail"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="exampleModalCenterTitle"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content container-fluid">
+                            <div class="modal-header">
+                              <h5 class="modal-title notoSans font_3" id="exampleModalLongTitle">
+                                登入失敗
+                              </h5>
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body row mt-3 ">
+                              
+                              <div class="col notoSans font_2">
+                                帳號或密碼錯誤
+                              </div>
+                            </div>
+
+                            <div class="modal-footer row">
+                              
+                              <div class="col">
+                                <p data-toggle="modal" data-dismiss="modal" data-target="#confirm" class="notoSans w_100 btn_solid1 font_2 text-center pointer" to>
+                                  確認
+                                </p>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 
             </div>
         </React.Fragment>

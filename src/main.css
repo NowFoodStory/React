@@ -70,6 +70,9 @@
 .font_5{
     font-size:3rem;
 }
+.font_6{
+    font-size: 5.5rem;
+}
 .logo_border{ 
     border: 2px solid white;
     border-radius: 5px;
@@ -389,6 +392,11 @@
     background: #F8F9FA;
     height: auto;
     border-right:3px solid #6C78E5;
+}
+.comment_active{
+    background: #F8F9FA;
+    height: auto;
+    border-right:3px solid #FF5722;
 }
 .green_bg{ /*購買成功背景*/
     background: linear-gradient(to bottom, rgba(115,217,183,1) 0%,rgba(141,230,199,1) 100%);

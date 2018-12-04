@@ -124,13 +124,16 @@ class UserB_shop extends Component {
     }
 
     payway =(evt)=>{ /*付款方式 */
-      let { checked, value } = evt.target
+      let  {value}  = evt.target
       let { checkout } = this.state
-      if (checked && checkout.indexOf(value) === -1) {
+      if ( checkout.indexOf(value) === -1) { //如果原本陣列沒有的話就加上去
         checkout.push(value)
-      } else {
+      } else { //如果原本陣列有的話 
         checkout.filter(item => item !== value)
-      }
+      }     
+      // if (checkout.indexOf(value)!== -1){
+      //   checkout.splice(value)
+      // }
       this.setState({
         checkout
       })
@@ -291,7 +294,7 @@ class UserB_shop extends Component {
                                           <div className="row mt-3">
                                             <div className="col">
                                               <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" value="cash" checked={this.state.checkout.indexOf('cash') !== -1} onChange={this.payway} id="check"></input>
+                                                <input className="form-check-input" type="checkbox" value="cash" onChange={this.payway} id="check"></input>
                                                 <label className="form-check-label notoSans" for="check">
                                                     現金 
                                                 </label>  
@@ -299,7 +302,7 @@ class UserB_shop extends Component {
                                             </div>
                                             <div className="col">
                                               <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" value="credit" checked={this.state.checkout.indexOf('credit') !== -1} onChange={this.payway} id="check"></input>
+                                                <input className="form-check-input" type="checkbox" value="credit" onChange={this.payway} id="check"></input>
                                                 <label className="form-check-label notoSans" for="check">
                                                     信用卡 
                                                 </label>  

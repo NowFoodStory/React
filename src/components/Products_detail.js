@@ -80,12 +80,12 @@ class Products_detail extends Component {
             <div className="col-8">
               <div class="row mt-5 pt-3">
                 <div className="col-4 text-center btn_solid2">
-                  <Link className="notoSans color_white" to="">
+                  <Link className="notoSans color_white text_decoration" to="/products_detail">
                     資訊
                   </Link>
                 </div>
                 <div className="col-4 text-center">
-                  <Link className="notoSans color_70" to="">
+                  <Link className="notoSans color_70" to="/products_comment">
                     評論
                   </Link>
                 </div>

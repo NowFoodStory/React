@@ -123,6 +123,15 @@ class UserB_account extends Component {
           let order = document.querySelector('#order')
           order.classList.add('order_active','py-1')
         }
+
+        if (window.location.href=="http://localhost:3001/userb_comment"){
+          let comment = document.querySelector('#comment')
+          comment.classList.add('comment_active','py-1')
+        } else{
+          let comment = document.querySelector('#comment')
+          comment.classList.remove('comment_active','py-1')
+        }
+        
     }
 
         handleChange = (evt) => { 
@@ -302,7 +311,7 @@ class UserB_account extends Component {
                     </Link>
                   </div>
 
-                  <div className="row justify-content-center mt-3">
+                  <div id="comment" className="row justify-content-center mt-3">
                     <Link className="col text-center text_decoration" to="/userb_comment">
                       <img className="img-fluid icon_size1 mr-3" src={comment}></img>
                       <span className="notoSans color_black font_1 font_300">
