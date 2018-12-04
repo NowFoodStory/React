@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../main.css";
+import $ from "jquery"
 
 import Nav from "./Nav";
 import account from "../images/account-icon.svg"
@@ -82,9 +83,11 @@ class UserB_shop extends Component {
             _Web:json.sellerProducts[0].Web,
             _opening:json.sellerProducts[0].opening,
             _close_time:json.sellerProducts[0].close_time,
-            _checkout:[],
+            // _checkout:json.sellerProducts[0].checkout,
             _Introduction:json.sellerProducts[0].Introduction,
-          })     
+          }) 
+                           
+          console.log(this.state._checkout)   
         }).catch(function(err) {
           console.log('失敗囉',err)
         })
@@ -126,14 +129,20 @@ class UserB_shop extends Component {
     payway =(evt)=>{ /*付款方式 */
       let  {value}  = evt.target
       let { checkout } = this.state
-      if ( checkout.indexOf(value) === -1) { //如果原本陣列沒有的話就加上去
+      // if ( checkout.indexOf(value) === -1) { //如果原本陣列沒有的話就加上去
+      //   checkout.push(value)
+      // } else { //如果原本陣列有的話 
+      //   checkout.filter(item => item !== value)
+      // } 
+      
+      if ( checkout.indexOf(value) === -1) { 
         checkout.push(value)
-      } else { //如果原本陣列有的話 
-        checkout.filter(item => item !== value)
-      }     
-      // if (checkout.indexOf(value)!== -1){
-      //   checkout.splice(value)
-      // }
+      } else if ( checkout.indexOf(value) === 0) { 
+        checkout.shift()
+      }  else { 
+        checkout.pop()
+      }
+
       this.setState({
         checkout
       })
@@ -153,7 +162,7 @@ class UserB_shop extends Component {
             },
             }).then(function (response) {
               // console.log(response.json())         
-              // return response.json();
+              return response.json();
             }).then(function(json){
               console.log('成功囉');
             }).catch(function(err) {
@@ -433,7 +442,7 @@ class UserB_shop extends Component {
                                   <div className="row mt-3">
                                     <div className="col">
                                       <div className="form-check">
-                                        <input disabled className="form-check-input" type="checkbox" value="" id="check"></input>
+                                        <input disabled className="form-check-input cash" type="checkbox" value="" id="cash"></input>
                                         <label className="form-check-label notoSans" for="check">
                                             現金 
                                         </label>  
@@ -441,7 +450,7 @@ class UserB_shop extends Component {
                                     </div>
                                     <div className="col">
                                       <div className="form-check">
-                                        <input disabled className="form-check-input" type="checkbox" value="" id="check"></input>
+                                        <input disabled className="form-check-input" type="checkbox" value="" id="credit"></input>
                                         <label className="form-check-label notoSans" for="check">
                                             信用卡 
                                         </label>  

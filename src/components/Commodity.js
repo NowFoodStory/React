@@ -19,12 +19,32 @@ class Commodity extends Component {
       value: ''
     };
     this.handleChange = this.handleChange.bind(this);
+
+    // 讀取店家跟商品資料
+    fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
+            method: 'GET',
+            mode:'cors',
+            credentials: 'include',
+            body: JSON.stringify(),
+        }).then(function (response) {       
+          return response.json();
+        }).then(function(json) {
+          // console.log(json)
+          console.log('成功囉');
+          this.setState({ 
+            
+          })     
+        }).catch(function(err) {
+          console.log('失敗囉',err)
+        })  
   }
   handleChange = (evt) => {
     this.setState({
         value: evt.target.value,
     });        
 }
+
+
 
   render() {
     return (
