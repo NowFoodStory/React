@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../main.css";
-import $ from "jquery"
+import $ from "jquery";
+import Toggle from 'react-toggle';
 
 import Nav from "./Nav";
 import account from "../images/account-icon.svg"
@@ -19,6 +20,7 @@ import UserB_left from "./UserB_left"
 class UserB_shop extends Component {
     constructor(props) {
       super(props);
+      this.handleEggsChange = this.creditChange.bind(this, 'eggsAreReady')
       this.state = {
         name:"",
         
@@ -29,8 +31,10 @@ class UserB_shop extends Component {
         Web:"",
         opening:"",
         close_time:"",
-        checkout:[],
         Introduction:"",
+        cash:"",
+        credit:"",
+        eggsAreReady: false,
         
         // 編輯完顯示在頁面上
         _FB:"",
@@ -38,14 +42,18 @@ class UserB_shop extends Component {
         _Web:"",
         _opening:"",
         _close_time:"",
-        _checkout:[],
         _Introduction:"",
+        _eggsAreReady:false,
 
         preview:null,
         
       }
+
+      
+      
     }
     componentDidMount(){
+      
        /*把資料GET到會員頁面 */
       fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/seller_member/seller_member_api.php', {
             method: 'GET',
@@ -83,11 +91,11 @@ class UserB_shop extends Component {
             _Web:json.sellerProducts[0].Web,
             _opening:json.sellerProducts[0].opening,
             _close_time:json.sellerProducts[0].close_time,
-            // _checkout:json.sellerProducts[0].checkout,
+            _eggsAreReady: json.sellerProducts[0].eggsAreReady==1, //如果資料庫是1的話 為true
             _Introduction:json.sellerProducts[0].Introduction,
           }) 
-                           
-          console.log(this.state._checkout)   
+          console.log(json.sellerProducts[0].eggsAreReady)                
+          console.log(this.state._eggsAreReady)
         }).catch(function(err) {
           console.log('失敗囉',err)
         })
@@ -110,7 +118,6 @@ class UserB_shop extends Component {
             Web:json.sellerProducts[0].Web,
             opening:json.sellerProducts[0].opening,
             close_time:json.sellerProducts[0].close_time,
-            checkout:[],
             Introduction:json.sellerProducts[0].Introduction,
           })     
         }).catch(function(err) {
@@ -126,28 +133,22 @@ class UserB_shop extends Component {
       })     
     }
 
-    payway =(evt)=>{ /*付款方式 */
-      let  {value}  = evt.target
-      let { checkout } = this.state
-      // if ( checkout.indexOf(value) === -1) { //如果原本陣列沒有的話就加上去
-      //   checkout.push(value)
-      // } else { //如果原本陣列有的話 
-      //   checkout.filter(item => item !== value)
-      // } 
+    // payway =(evt)=>{ /*付款方式 */
+    //   let  {value}  = evt.target
+    //   let { checkout } = this.state
       
-      if ( checkout.indexOf(value) === -1) { 
-        checkout.push(value)
-      } else if ( checkout.indexOf(value) === 0) { 
-        checkout.shift()
-      }  else { 
-        checkout.pop()
-      }
-
-      this.setState({
-        checkout
-      })
-      console.log(this.state.checkout)
-    }
+    //   if ( checkout.indexOf(value) === -1) { 
+    //     checkout.push(value)
+    //   } else if ( checkout.indexOf(value) === 0) { 
+    //     checkout.shift()
+    //   }  else { 
+    //     checkout.pop()
+    //   }
+    //   this.setState({
+    //     checkout
+    //   })
+    //   console.log(this.state.checkout)
+    // }
 
     upload = () => { /*上傳編輯完的商店資訊 */
           let data = this.state
@@ -164,6 +165,7 @@ class UserB_shop extends Component {
               // console.log(response.json())         
               return response.json();
             }).then(function(json){
+              console.log(json)
               console.log('成功囉');
             }).catch(function(err) {
               console.log('失敗囉',err)
@@ -208,6 +210,11 @@ class UserB_shop extends Component {
                
             let form2 = document.querySelector('#form2')
             form2.submit()
+    }
+
+    creditChange (key, event) {
+      this.setState({ [key]: event.target.checked })
+      console.log(this.state.eggsAreReady)
     }
     
     render() {
@@ -297,11 +304,20 @@ class UserB_shop extends Component {
                                   <div className="col">
                                   
 
-                                    <div className="row mt-2">
-                                        <div className="col notoSans ">
-                                          <span className="font_1">結帳設定</span><span className="ml-1 color_70">設定買家付款方式</span>
-                                          <div className="row mt-3">
-                                            <div className="col">
+                                    <div className="row mt-2 align-items-end justify-content-between">
+                                        
+                                          <div className="col-8 font_1 notoSans">
+                                            信用卡付款<br/>
+                                            <span className="font_0 color_70">讓買家能使用信用卡</span>
+                                          </div>
+                                          <div className="col-4 text-right"><Toggle
+                                            defaultChecked={this.state.eggsAreReady}
+                                            aria-label='No label tag'
+                                            onChange={this.handleEggsChange} /> 
+                                          </div>
+                                          {/* <div className="row mt-3"> */}
+                                                           
+                                            {/* <div className="col">
                                               <div className="form-check">
                                                 <input className="form-check-input" type="checkbox" value="cash" onChange={this.payway} id="check"></input>
                                                 <label className="form-check-label notoSans" for="check">
@@ -316,9 +332,9 @@ class UserB_shop extends Component {
                                                     信用卡 
                                                 </label>  
                                               </div> 
-                                            </div>
-                                          </div>
-                                        </div>
+                                            </div> */}
+                                          {/* </div> */}
+                                        
                                     </div>
 
                                     <div className="row mt-3">
@@ -436,34 +452,23 @@ class UserB_shop extends Component {
                             </div>                                          
                           </div>
 
-                            <div className="row mt-4">
-                                <div className="col notoSans ">
-                                  <span className="font_1">結帳設定</span><span className="ml-1 color_70">設定買家付款方式</span>
-                                  <div className="row mt-3">
-                                    <div className="col">
-                                      <div className="form-check">
-                                        <input disabled className="form-check-input cash" type="checkbox" value="" id="cash"></input>
-                                        <label className="form-check-label notoSans" for="check">
-                                            現金 
-                                        </label>  
-                                      </div>            
-                                    </div>
-                                    <div className="col">
-                                      <div className="form-check">
-                                        <input disabled className="form-check-input" type="checkbox" value="" id="credit"></input>
-                                        <label className="form-check-label notoSans" for="check">
-                                            信用卡 
-                                        </label>  
-                                      </div> 
-                                    </div>
-                                  </div>
-                                </div>
+                            <div className="row mt-4 align-items-end">
+                              <div className="col-8 font_1 notoSans">
+                                            信用卡付款<br/>
+                                            <span className="font_0 color_70">開啟讓買家能使用信用卡付款</span>
+                              </div>
+                              <div className="col-4 text-right"><Toggle
+                                            disabled
+                                            defaultChecked={this.state._eggsAreReady}
+                                            aria-label='No label tag' /> 
+                              </div>
+                                
                             </div>
 
                             <div className="row mt-4">
                               <div class="col">
                                     <label className="notoSans font_1" for="name">商家簡介</label>
-                                    <textarea disabled value={this.state._Introduction} type="text" rows="9" class="form-control form-control1 notoSans" id="text"></textarea>                           
+                                    <textarea disabled value={this.state._Introduction} type="text" rows="10" class="form-control form-control1 notoSans" id="text"></textarea>                           
                               </div>
                             </div>
                         </div>

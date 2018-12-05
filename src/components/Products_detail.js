@@ -30,8 +30,6 @@ class Products_detail extends Component {
       num: 0
     };
  
-  
-
   }
   changePage = evt => {
     window.location.href = "/purchase";

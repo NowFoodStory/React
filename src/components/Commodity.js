@@ -16,7 +16,24 @@ class Commodity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+
+      sellers:[],
+      products:[],
+
+      seller_sid:"",
+      seller_name:"",
+      logo_photo:"",
+      opening:"",
+      close_time:"",
+
+      food_name:"",
+      food_class:"",
+      food_quantity:"",
+      food_price:"",
+      food_discount:"",
+      food_photo:"",
+
     };
     this.handleChange = this.handleChange.bind(this);
 
@@ -28,12 +45,15 @@ class Commodity extends Component {
             body: JSON.stringify(),
         }).then(function (response) {       
           return response.json();
-        }).then(function(json) {
-          // console.log(json)
+        }).then(json => {
+          console.log(json)
           console.log('成功囉');
           this.setState({ 
-            
+            sellers:json,
+            // products:json.foods
           })     
+          console.log(this.state.sellers)
+          console.log(this.state.products)
         }).catch(function(err) {
           console.log('失敗囉',err)
         })  
@@ -90,18 +110,8 @@ class Commodity extends Component {
           </div>
         </div>
         <div class="row ml-5 mt-3">
-          <div className="col vh_25">
-            <img src={product1} className="img-fluid w_100 "></img>
-          </div>
-          <div className="col vh_25">
-            <img src={product2} className="img-fluid d-block mx-auto w_100"></img>
-          </div>
-          <div className="col vh_25">
-            <img src={product3} className="img-fluid d-block ml-auto w_100"></img>
-          </div>
-        </div>
-        <div class="row ml-5">
           <div className="col">
+            <img src={product1} className="img-fluid w_100 vh_25 object_fit"></img>
             <div className="row ">
               <div className="col">
                 <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
@@ -122,10 +132,10 @@ class Commodity extends Component {
                 </p>
               </div>
             </div>
-                            
           </div>
-          <div className="col">
 
+          <div className="col">
+            <img src={product2} className="img-fluid d-block mx-auto w_100 vh_25 object_fit"></img>
             <div className="row ">
               <div className="col">
                 <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
@@ -146,10 +156,10 @@ class Commodity extends Component {
                 </p>
               </div>
             </div>
-
           </div>
-          <div className="col">
 
+          <div className="col">
+            <img src={product3} className="img-fluid d-block ml-auto w_100 vh_25 object_fit"></img>
             <div className="row ">
               <div className="col">
                 <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
@@ -170,8 +180,10 @@ class Commodity extends Component {
                 </p>
               </div>
             </div>
-          </div>          
+          </div>
+
         </div>
+
 
         <div className="row mt-2 ml-5">
           <div className="col">
@@ -182,119 +194,68 @@ class Commodity extends Component {
       {/* ------------以上為一家店------------ */}
 
       {/* ------------以下為一家店------------ */}
-      <div className="row mt-3 ml-5">
+      {this.state.sellers.map(sellers=>
+      <div key={sellers.seller_sid}>
+        <div className="row mt-3 ml-5">
           <div className="col-2">
             <figure className="circle figure">
-              <img className="img-fluid" src={logo}></img>
+              <img className="img-fluid" src={"http://localhost:3000/uploads/" + sellers.logo_photo}></img>
             </figure>
           </div>
           <div className="col-7 pl-0">
-            <h5>
-              LOUISA COFFEE
+            <h5 className="notoSans">
+              {sellers.seller_name} 
             </h5>
             <p className="notoSans color_orange mb-1">
               4.2★★★★☆  <span className="color_70 ml-2">(54)</span>
             </p>
             <p className="notoSans color_70">
-              <img className="img-fluid icon_size" src={location}></img> 150公尺  <img className="img-fluid icon_size ml-2" src={time}></img> 8.pm - 8.30pm
+              <img className="img-fluid icon_size" src={location}></img> 150公尺  <img className="img-fluid icon_size ml-2" src={time}></img> {sellers.opening} - {sellers.close_time}
             </p>
           </div>
           <div className="col-3 align-self-center">
-            <Link className="btn_solid1 text-center notoSans" to="/products_detail">
+            <Link className="btn_solid1 text-center notoSans" to={(`/products_detail/${sellers.seller_sid}`)}>
               查看商品
             </Link>
           </div>
         </div>
+
         <div class="row ml-5 mt-3">
-          <div className="col vh_25">
-            <img src={product1} className="img-fluid w_100 "></img>
+          {sellers.foods.map(foods=>
+          <div   className="col-4">
+            <img src={"http://localhost:3000/uploads/" + foods.food_photo} className="img-fluid w_100 vh_25 object_fit"></img>
+            <div className="row ">
+              <div className="col">
+                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
+                    ${foods.food_price}
+                </p>
+              </div> 
+            </div>  
+            
+            <div className="row align-items-center">
+              <div className="col-8">
+                <h5 className="notoSans letter_space1">
+                  {foods.food_name}
+                </h5>
+              </div>
+              <div className="col-4">              
+                <p className="notoSans color_orange text-right font_3">
+                  ${foods.food_discount}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="col vh_25">
-            <img src={product2} className="img-fluid d-block mx-auto w_100"></img>
-          </div>
-          <div className="col vh_25">
-            <img src={product3} className="img-fluid d-block ml-auto w_100"></img>
-          </div>
+          )}
         </div>
-        <div class="row ml-5">
-          <div className="col">
-            <div className="row ">
-              <div className="col">
-                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
-                    $65
-                </p>
-              </div> 
-            </div>  
-            
-            <div className="row align-items-center">
-              <div className="col-8">
-                <h5 className="notoSans letter_space1">
-                  櫻桃乳酪塔
-                </h5>
-              </div>
-              <div className="col-4">              
-                <p className="notoSans color_orange text-right font_3">
-                  $20
-                </p>
-              </div>
-            </div>
-                            
-          </div>
-          <div className="col">
-
-            <div className="row ">
-              <div className="col">
-                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
-                    $85
-                </p>
-              </div> 
-            </div>  
-            
-            <div className="row align-items-center">
-              <div className="col-8">
-                <h5 className="notoSans letter_space1">
-                  焦糖蘋果派
-                </h5>
-              </div>
-              <div className="col-4">              
-                <p className="notoSans color_orange text-right font_3">
-                  $25
-                </p>
-              </div>
-            </div>
-
-          </div>
-          <div className="col">
-
-            <div className="row ">
-              <div className="col">
-                <p className="notoSans color_70 text-right font_2 line-through mb-0">                 
-                    $45
-                </p>
-              </div> 
-            </div>  
-            
-            <div className="row align-items-center">
-              <div className="col-8">
-                <h5 className="notoSans letter_space1">
-                  青檸塔
-                </h5>
-              </div>
-              <div className="col-4">              
-                <p className="notoSans color_orange text-right font_3">
-                  $15
-                </p>
-              </div>
-            </div>
-          </div>          
-        </div>
+        
 
         <div className="row mt-2 ml-5">
           <div className="col">
             <hr/>
           </div>       
         </div>
-
+      </div>
+      )}
         {/* ------------以上為一家店------------ */}
 
         </React.Fragment>

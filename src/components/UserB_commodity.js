@@ -43,7 +43,7 @@ class UserB_commodity extends Component {
             // console.log(response.json())         
             return response.json();
           }).then(json => {
-            console.log(json.sellerProducts)
+            console.log(json)
             this.setState({ 
               products:json.sellerProducts   //更新陣列裡的資料      
             }) 

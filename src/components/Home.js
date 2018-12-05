@@ -91,11 +91,11 @@ class Home extends Component {
         </div>
 
         <div className="signup_bg2 over_flow">
-          <p data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="row notoSans font_4 font_500 letter_space1 justify-content-center pt-5 color_white">
+          <p data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="row notoSans font_4 letter_space1 justify-content-center pt-5 color_white">
             關於我們的使命
           </p>
           <div className="row px_10 justify-content-center">
-            <p data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-8 font_1 notoSans letter_space1 text-justify pb-5 line_height color_white">
+            <p data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-8 font_1 notoSans letter_space1 text-justify pb-5 line_height color_white font_300">
               根據聯合國資料，全球每年有1/3的食物還沒食用就遭丟棄，這13億噸遭到浪費的食物，造成7500億美元與龐大環境成本，例如產生高達44億噸的碳排放。回顧台灣，每年從廚餘量推估的食材浪費達300萬噸以上，因此我們團隊決定提供一個平台來解決店家浪費食物的問題。
             </p>
           </div>      
