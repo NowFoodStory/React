@@ -27,6 +27,7 @@ import UserB_commodity_upload from "./components/UserB_commodity_upload";
 import UserB_order from "./components/UserB_order";
 import UserB_picked from "./components/UserB_picked";
 import UserB_comment from "./components/UserB_comment";
+import Blog from "./components/Blog";
 
 library.add(faStroopwafel);
 
@@ -38,7 +39,8 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
           <Route path="/products" component={Products} />
-          <Route path="/products_detail" component={Products_detail} />
+          {/* <Route path="/products_detail" component={Products_detail} /> */}
+          <Route path="/products_detail/:sid" component={Products_detail} />
           <Route path="/products_comment" component={Products_comment} />
           <Route path="/purchase" component={Purchase} />
           <Route path="/signup" component={Signup} />
@@ -55,6 +57,7 @@ class App extends Component {
           <Route path="/userb_order" component={UserB_order} />
           <Route path="/userb_picked" component={UserB_picked} />
           <Route path="/userb_comment" component={UserB_comment} />
+          <Route path="/blog" component={Blog} />
         </div>
       </BrowserRouter>
     );

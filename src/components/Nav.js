@@ -118,7 +118,7 @@ class Nav extends Component {
                     |
                 </li>
                 <li className="nav-item my-auto">
-                  <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/store">
+                  <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/blog">
                     專欄
                   </Link>
                 </li>

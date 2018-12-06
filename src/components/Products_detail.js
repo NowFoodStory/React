@@ -7,6 +7,7 @@ import "../main.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStroopwafel } from "@fortawesome/free-solid-svg-icons";
+import $ from "jquery";
 
 import Nav from "./Nav";
 import Footer from "./Footer";
@@ -27,9 +28,64 @@ class Products_detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      num: 0
+      num: 0,
+      
+      seller_name:"",
+      logo_photo:"",
+      cover_photo:"",
+      seller_phone:"",
+      seller_address:"",
+      opening:"",
+      close_time:"",
+      FB:"",
+      IG:"",
+      Web:"",
+      Introduction:"",
+
+      products:[],
+
     };
- 
+    console.log(this.props.match.params.sid)
+    /*讀取店家跟商品資料 */
+    fetch(`http://localhost/foodstory_end/PHP-and-SQL-master/php/store/storeAPI.php?seller_sid=${this.props.match.params.sid}`, { 
+      method: 'GET',
+      mode:'cors',
+      credentials: 'include',
+      body: JSON.stringify(),
+    }).then(function (response) {
+      // console.log(response.json())         
+      return response.json();
+    }).then(json => {
+      console.log(json)
+      this.setState({ 
+        seller_name:json.sellerData[0].seller_name,
+        logo_photo:json.sellerData[0].logo_photo,
+        cover_photo:json.sellerData[0].cover_photo,
+        seller_phone:json.sellerData[0].seller_phone,
+        seller_address:json.sellerData[0].seller_address,
+        opening:json.sellerData[0].opening,
+        close_time:json.sellerData[0].close_time,
+        FB:json.sellerData[0].FB,
+        IG:json.sellerData[0].IG,
+        Web:json.sellerData[0].Web,
+        Introduction:json.sellerData[0].Introduction,
+
+        products:json.shopData,
+      })    
+    }).catch(function(err) {
+      console.log('失敗囉',err)
+    })
+  }
+
+  componentDidMount(){
+    $(document).on('click','.add',function(evt){
+      $(this).prev().val(Math.abs(parseInt($(this).prev().val()))+1)
+    })
+    $(document).on('click','.min',function(evt){
+      if($(this).next().val()>0){
+        $(this).next().val(Math.abs(parseInt($(this).next().val()))-1)
+      }
+    })
   }
   changePage = evt => {
     window.location.href = "/purchase";
@@ -39,11 +95,11 @@ class Products_detail extends Component {
     like.classList.toggle("red_color");
   };
 
-  addNum = evt => {
+  addNum = (evt) => {
     num++;
     console.log(num);
     this.setState({
-      value: evt.target.value
+      num:num
     });
   };
   minusNum = evt => {
@@ -52,7 +108,7 @@ class Products_detail extends Component {
     }
     console.log(num);
     this.setState({
-      value: evt.target.value
+      num:num
     });
   };
 
@@ -70,6 +126,10 @@ class Products_detail extends Component {
   }
   
   render() {
+    var img = {
+    background: `url(http://localhost:3000/uploads/${this.state.cover_photo}) no-repeat 50% 50%`,
+    backgroundSize: '100%'
+  }
     return (
       <React.Fragment>
         <Nav />
@@ -100,24 +160,33 @@ class Products_detail extends Component {
                     <div class="row mt_15vh">
                       <div className="col">
                         <h2 className="notoSans color_white font_5 font_600 letter_space1 text-center">
-                          LOUISA COFFEE
+                          {this.state.seller_name} 
                         </h2>
                       </div>
                     </div>
 
                     <div class="row mt-5">
-                      <img
-                        className="img-fluid icon_size2 d-block ml-auto"
+                      <a className="ml-auto" target="_blank" href={this.state.FB}>
+                        <img
+                        className="img-fluid icon_size2 d-block"
                         src={fb}
                       />
-                      <img
+                      </a>
+                      
+                      <a target="_blank" href={this.state.IG}>
+                        <img
                         className="img-fluid icon_size2 d-block mx-3"
                         src={ig}
                       />
-                      <img
+                      </a>
+                      
+                      <a  target="_blank" href={this.state.Web}>
+                        <img
                         className="img-fluid icon_size2 d-block mr-4"
                         src={home}
                       />
+                      </a>
+                      
                     </div>
                   </figure>
                 </div>
@@ -126,24 +195,24 @@ class Products_detail extends Component {
               <div className="row mt-1">
                 <div className="col-2">
                   <figure className="circle figure">
-                    <img className="img-fluid" src={logo} />
+                    <img className="img-fluid" src={"http://localhost:3000/uploads/" + this.state.logo_photo} />
                   </figure>
                 </div>
                 <div className="col-7 pl-0 ">
-                  <h5 className="notoSans">106台北市大安區復興南路一段323號</h5>
+                  <h5 className="notoSans">{this.state.seller_address}</h5>
                   <p className="notoSans color_orange mb-1">
                     4.2★★★★☆ <span className="color_70 ml-2">(54)</span>
                   </p>
                   <p className="notoSans color_70">
                     <img className="img-fluid icon_size" src={location} />{" "}
                     150公尺{" "}
-                    <img className="img-fluid icon_size ml-2" src={time} /> 8.pm
-                    - 8.30pm
+                    <img className="img-fluid icon_size ml-2" src={time} /> {this.state.opening}
+                    - {this.state.close_time}
                     <img
                       className="img-fluid icon_size ml-2"
                       src={phone}
                     />{" "}
-                    02-12345678
+                    {this.state.seller_phone}
                   </p>
                 </div>
                 <div className="col-3 align-self-start text-right">
@@ -157,154 +226,72 @@ class Products_detail extends Component {
               {/* 店家簡介 */}
               <div className="row mt-1">
                 <p className="notoSans text-justify">
-                  致力於提供每一位咖啡愛好者都能夠享受一杯個性化獨享的美味好咖啡，每個月有近100萬杯咖啡經由受過專業培訓的路易莎門市夥伴的手遞送到咖啡愛好者的手中，每一年全台路易莎咖啡門市調製超過1000萬杯的咖啡。
-                  路易莎咖啡是一個年輕、有活力的專業精品咖啡連鎖品牌，除了供應獨家經典配方豆以外，路易莎全省門市也提供來自全球多個國家地區，多達數十種的莊園級咖啡豆，而且是以親民的平實價格供應，讓路易莎的消費顧客可以在輕鬆無負擔的情形下享受不同精品咖啡的風味。
+                  {this.state.Introduction}
                 </p>
               </div>
-              {/* 商品1 */}
-              <div className="row mt-1">
-                <div className="col-4 vh_25">
-                  <img src={product1} className="img-fluid w_100 " />
+              {/* 商品 */}
+            {this.state.products.map(products=>
+              <div key={products.food_sid}>
+                  <div className="row mt-1">
+                  <div className="col-4 vh_25">
+                    <img src={"http://localhost:3000/uploads/" + products.food_photo} className="img-fluid w_100 " />
+                  </div>
+
+                  <div className="col-8">
+                    <div className="row justify-content-center">
+                      <div className="col-4">
+                        <p className="notoSans font_1 text-center">
+                          數量 <span className="color_70 font_1">還剩{products.food_quantity}個</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="row justify-content-end">
+                      <div className="col-4">
+                        <p className="notoSans color_70 text-right font_2 line-through">
+                          ${products.food_price*num}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-4">
+                        <h5 className="notoSans letter_space1">{products.food_name}</h5>
+                      </div>
+                      <div className="col-4">
+                        <p className="text-center font_2">
+                          <span
+                            // onClick={this.minusNum}
+                            className="btn_num font_3 font_600 mr-3 pointer min"
+                          >
+                            -
+                          </span>
+                          {/* <span>{num}</span> */}
+                          <input className="w_25 text-center" type="text" value="0"></input>
+                          <span
+                            // onClick={this.addNum}
+                            className="btn_num font_3 font_600 ml-3 pointer add"
+                          >
+                            +
+                          </span>
+                        </p>
+                      </div>
+                      <div className="col-4">
+                        <p className="notoSans color_orange text-right font_3">
+                          ${products.food_discount*num}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="col-8">
-                  <div className="row justify-content-center">
-                    <div className="col-4">
-                      <p className="notoSans font_1 text-center">
-                        數量 <span className="color_70 font_1">還剩2個</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="row justify-content-end">
-                    <div className="col-4">
-                      <p className="notoSans color_70 text-right font_2 line-through">
-                        $65
-                      </p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-4">
-                      <h5 className="notoSans letter_space1">櫻桃乳酪塔</h5>
-                    </div>
-                    <div className="col-4">
-                      <p className="text-center font_2">
-                        <span
-                          onClick={this.minusNum}
-                          className="btn_num font_3 font_600 mr-4 pointer"
-                        >
-                          -
-                        </span>
-                        {num}
-                        <span
-                          onClick={this.addNum}
-                          className="btn_num font_3 font_600 ml-4 pointer"
-                        >
-                          +
-                        </span>
-                      </p>
-                    </div>
-                    <div className="col-4">
-                      <p className="notoSans color_orange text-right font_3">
-                        $20
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row mt-3">
-                <div className="col">
-                  <hr />
-                </div>
-              </div>
-
-              {/* 商品2 */}
-
-              <div className="row mt-1">
-                <div className="col-4 vh_25">
-                  <img src={product2} className="img-fluid w_100 " />
-                </div>
-
-                <div className="col-8">
-                  <div className="row justify-content-center">
-                    <div className="col-4">
-                      <p className="notoSans font_1 text-center">
-                        數量 <span className="color_70 font_1">還剩3個</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="row justify-content-end">
-                    <div className="col-4">
-                      <p className="notoSans color_70 text-right font_2 line-through">
-                        $170
-                      </p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-4">
-                      <h5 className="notoSans letter_space1">焦糖蘋果派</h5>
-                    </div>
-                    <div className="col-4">
-                      <p className="text-center font_2">
-                        <span className="btn_num font_3 font_600 mr-4">-</span>2
-                        <span className="btn_num font_3 font_600 ml-4">+</span>
-                      </p>
-                    </div>
-                    <div className="col-4">
-                      <p className="notoSans color_orange text-right font_3">
-                        $50
-                      </p>
-                    </div>
+                <div className="row mt-3">
+                  <div className="col">
+                    <hr />
                   </div>
                 </div>
               </div>
-
-              <div className="row mt-3">
-                <div className="col">
-                  <hr />
-                </div>
-              </div>
-
-              {/* 商品2 */}
-
-              <div className="row mt-1">
-                <div className="col-4 vh_25">
-                  <img src={product3} className="img-fluid w_100" />
-                </div>
-
-                <div className="col-8">
-                  <div className="row justify-content-center">
-                    <div className="col-4">
-                      <p className="notoSans font_1 text-center">
-                        數量 <span className="color_70 font_1">還剩5個</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="row justify-content-end">
-                    <div className="col-4">
-                      <p className="notoSans color_70 text-right font_2 line-through">
-                        $0
-                      </p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-4">
-                      <h5 className="notoSans letter_space1">青檸塔</h5>
-                    </div>
-                    <div className="col-4">
-                      <p className="text-center font_2">
-                        <span className="btn_num font_3 font_600 mr-4">-</span>0
-                        <span className="btn_num font_3 font_600 ml-4">+</span>
-                      </p>
-                    </div>
-                    <div className="col-4">
-                      <p className="notoSans color_orange text-right font_3">
-                        $0
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            )} 
+              
+              
 
               <div className="row mt-5" />
               <div className="row mt-5" />
@@ -457,8 +444,5 @@ class Products_detail extends Component {
     );
   }
 }
-var img = {
-    background: 'url(https://i.screenshot.net/xoomltg) no-repeat 50% 50%',
-    backgroundSize: '100%'
-  }
+
 export default Products_detail;

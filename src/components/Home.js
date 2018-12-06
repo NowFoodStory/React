@@ -21,28 +21,7 @@ class Home extends Component {
     super(props);
   }
   componentDidMount(){ 
-      // let scrollLast = 0;
-      // window.addEventListener('scroll',function(){
-      //   let scrollNow = $(this).scrollTop();
-      //   let navbar = document.querySelector('.navbar')
-      //   if (scrollNow > scrollLast){
-      //     navbar.classList.add('hide_nav')
-      //   } else {
-      //     navbar.classList.remove('hide_nav')
-      //   }
-      //   scrollLast = scrollNow;
-      // })
-    // $(window).scroll(function () {
-    //     let scrollNow = $(this).scrollTop();
-
-    //     if (scrollNow > scrollLast) {
-    //         $('.navbar').addClass('hide_nav');
-    //     } else {
-    //         $('.navbar').removeClass('hide_nav');
-    //     }
-    //     scrollLast = scrollNow; //現在離頂部距離大於上次就會隱藏nav
-    // })
-    
+        
   }
   
   render() {
