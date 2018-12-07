@@ -45,6 +45,8 @@ class Products_detail extends Component {
       products:[],
 
     };
+    this.my_products = {};
+    this.all_products = [];
     console.log(this.props.match.params.sid)
     /*讀取店家跟商品資料 */
     fetch(`http://localhost/foodstory_end/PHP-and-SQL-master/php/store/storeAPI.php?seller_sid=${this.props.match.params.sid}`, { 
@@ -78,13 +80,51 @@ class Products_detail extends Component {
   }
 
   componentDidMount(){
+    const me = this;
     $(document).on('click','.add',function(evt){
-      $(this).prev().val(Math.abs(parseInt($(this).prev().val()))+1)
+      const div = $(evt.target).closest('.p_unit');
+      const food_sid = div.attr('data-food_sid');
+      const input = div.find('input');
+      const discount = div.find('.discount').attr('data-dis');
+      let v = parseInt(input.val()) +1;
+      input.val( v );
+      console.log(discount)
+      // me.my_products[food_sid] = v ;
+
+      if(me.my_products[food_sid]){
+        me.my_products[food_sid]['food_quantity'] = v;
+      } else {
+        
+        me.my_products[food_sid] = {
+          food_sid: food_sid,
+          food_quantity: v,
+          discount: discount
+        };
+        me.all_products.push(me.my_products[food_sid])
+      }
+
+
+      
+      console.log(me.my_products);
+      console.log(me.all_products)
+      //$(this).prev().val(Math.abs(parseInt($(this).prev().val()))+1)
     })
     $(document).on('click','.min',function(evt){
-      if($(this).next().val()>0){
-        $(this).next().val(Math.abs(parseInt($(this).next().val()))-1)
-      }
+      const div = $(evt.target).closest('.p_unit');
+      const food_sid = div.attr('data-food_sid');
+      const input = div.find('input');
+      let v = parseInt(input.val()) - 1;
+      input.val( v );
+
+      // me.my_products[food_sid] = v ;
+      me.my_products['food_sid'] = food_sid ;
+      me.my_products['food_quantity'] = v
+      me.all_products.push(me.my_products)
+      console.log(me.my_products);
+      console.log(me.all_products)
+      // if($(this).next().val()>0){
+      //   $(this).next().val(Math.abs(parseInt($(this).next().val()))-1)
+      // }
     })
   }
   changePage = evt => {
@@ -231,7 +271,7 @@ class Products_detail extends Component {
               </div>
               {/* 商品 */}
             {this.state.products.map(products=>
-              <div key={products.food_sid}>
+              <div className="p_unit" key={products.food_sid} data-food_sid={products.food_sid}>
                   <div className="row mt-1">
                   <div className="col-4 vh_25">
                     <img src={"http://localhost:3000/uploads/" + products.food_photo} className="img-fluid w_100 " />
@@ -248,7 +288,7 @@ class Products_detail extends Component {
                     <div className="row justify-content-end">
                       <div className="col-4">
                         <p className="notoSans color_70 text-right font_2 line-through">
-                          ${products.food_price*num}
+                          ${products.food_price}
                         </p>
                       </div>
                     </div>
@@ -276,7 +316,7 @@ class Products_detail extends Component {
                       </div>
                       <div className="col-4">
                         <p className="notoSans color_orange text-right font_3">
-                          ${products.food_discount*num}
+                          $<span className="discount" data-dis={products.food_discount}>0</span>
                         </p>
                       </div>
                     </div>

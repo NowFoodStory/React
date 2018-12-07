@@ -96,6 +96,13 @@ class UserB_shop extends Component {
           }) 
           console.log(json.sellerProducts[0].eggsAreReady)                
           console.log(this.state._eggsAreReady)
+          // if(this.state._eggsAreReady==true){
+          //   let toggle = document.querySelector('.toggle')
+          //   toggle.setAttribute('checked','true')
+          // } else {
+          //   let toggle = document.querySelector('.toggle')
+          //   toggle.removeAttribute('checked')
+          // }
         }).catch(function(err) {
           console.log('失敗囉',err)
         })
@@ -458,6 +465,7 @@ class UserB_shop extends Component {
                                             <span className="font_0 color_70">開啟讓買家能使用信用卡付款</span>
                               </div>
                               <div className="col-4 text-right"><Toggle
+                                            className="toggle"
                                             disabled
                                             defaultChecked={this.state._eggsAreReady}
                                             aria-label='No label tag' /> 
