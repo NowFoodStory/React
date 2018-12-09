@@ -25,8 +25,7 @@ class Blog extends Component {
     super(props);
   }
   componentDidMount(){ 
-      
-    
+          
   }
   
   render() {
@@ -42,9 +41,10 @@ class Blog extends Component {
         <div className="pt_72">
           <Nav />
           
-          <div className="container-fluid row justify-content-center reset px_10 py-5 mt-5">      
-            <div className="col-8 vh_65 relative">
-                <img className="img-fluid vh_65 object_fit w_100" src={waste}></img>
+          <div className="container-fluid row justify-content-center reset px_10 py-5 mt-5">  
+              
+            <div className="col-10 vh_70 relative mx-auto">           
+                <img className="img-fluid vh_70 object_fit w_100" src={waste}></img>
                 <div className="white_bg reset p-2 absolute bottom_0 mb-3 col-7 notoSans left_50 translate_left">
                 <div className="white_bg2 p-4">
                     <Link to="/blog_detail" className="font_3 font_600 letter_space1 hover_orange pointer color_black">
@@ -57,15 +57,15 @@ class Blog extends Component {
                     台灣食物浪費主要發生在消費端，而其中不懂烹煮、愛拍照的年輕世代，最容易發生食物浪費的狀況...
                     </p>
                 </div>             
-                </div>
-            </div>          
-          </div>
+                </div>                                      
+            </div>
           
-                 
+          </div>
+                               
 
           <div className="container-fluid row justify-content-center reset px_10">
             <div className="col-3 vh_50 upper box_shadow2 px-0 notoSans mt-5 mx-3">
-                <img className="img-fluid vh_25 w_100 object_fit" src={blog_1}></img>
+                <img className="img-fluid vh_25 w_100 object_fit pointer" src={blog_1}></img>
                 <p className="font_1 mx-3 mt-3 hover_orange">香港勞團回收剩食 盼需要的人都能「食德好」</p>
                 <p className=" mx-3 mt-3">文/陳倢伃</p>
             </div>
@@ -82,8 +82,7 @@ class Blog extends Component {
                 <p className=" mx-3 mt-3">文/陳倢伃</p>
             </div>
             
-            
-            
+                               
             
             
           </div>

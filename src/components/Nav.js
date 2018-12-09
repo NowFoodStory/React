@@ -109,18 +109,27 @@ class Nav extends Component {
                   <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/userb_account">
                     會員中心
                   </Link> 
-                  :
+                  : this.state.type === '3' ?
+                  <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/user_admin">
+                    管理會員
+                  </Link>
+                  : 
                   <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/login">
                     會員中心
-                  </Link> }
+                  </Link>}
                 </li>
                 <li className="nav-item my-auto color_white mx-2 line">
                     |
                 </li>
                 <li className="nav-item my-auto">
+                {this.state.type === '3' ?
+                  <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/blog_admin">
+                    管理專欄
+                  </Link>
+                  :
                   <Link className="notoSans color_white letter_space2 font_300 btn-2" to="/blog">
                     專欄
-                  </Link>
+                  </Link> }
                 </li>
                 <li className="nav-item my-auto color_white mx-2 line">
                     |

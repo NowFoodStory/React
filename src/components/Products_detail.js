@@ -47,6 +47,7 @@ class Products_detail extends Component {
     };
     this.my_products = {};
     this.all_products = [];
+    this.total = 0;  
     console.log(this.props.match.params.sid)
     /*讀取店家跟商品資料 */
     fetch(`http://localhost/foodstory_end/PHP-and-SQL-master/php/store/storeAPI.php?seller_sid=${this.props.match.params.sid}`, { 
@@ -81,76 +82,105 @@ class Products_detail extends Component {
 
   componentDidMount(){
     const me = this;
-    $(document).on('click','.add',function(evt){
+    $('.col-8').unbind('click').on('click','.add',function(evt){
+      const div = $(evt.target).closest('.p_unit');
+      const food_sid = div.attr('data-food_sid');
+      const input = div.find('input');
+      const discount = div.find('.discount').attr('data-dis'); //售價
+      const price = div.find('.price').attr('data-price'); //原價
+      const num = div.find('.num').attr('data-num'); //庫存數量
+      
+      let v = parseInt(input.val()) +1;
+      input.val( v );
+      div.find('.discount').text(v*discount)
+      div.find('.price').text(v*price)    
+
+      if(me.my_products[food_sid]){ 
+        me.my_products[food_sid]['food_quantity'] = v;
+      } else {       
+        me.my_products[food_sid] = {
+          "food_sid": food_sid,
+          "food_quantity": v,
+          "food_discount": discount
+        };
+        me.all_products.push(me.my_products[food_sid])       
+      }  
+      me.total+=(parseInt(me.my_products[food_sid]['food_discount']))
+      $(document).find('.total').text(me.total)
+      console.log(me.all_products)
+      console.log(me.total)
+    })
+    $('.col-8').on('click','.min',function(evt){
       const div = $(evt.target).closest('.p_unit');
       const food_sid = div.attr('data-food_sid');
       const input = div.find('input');
       const discount = div.find('.discount').attr('data-dis');
-      let v = parseInt(input.val()) +1;
-      input.val( v );
-      console.log(discount)
-      // me.my_products[food_sid] = v ;
-
-      if(me.my_products[food_sid]){
-        me.my_products[food_sid]['food_quantity'] = v;
-      } else {
-        
-        me.my_products[food_sid] = {
-          food_sid: food_sid,
-          food_quantity: v,
-          discount: discount
-        };
-        me.all_products.push(me.my_products[food_sid])
-      }
-
-
-      
-      console.log(me.my_products);
-      console.log(me.all_products)
-      //$(this).prev().val(Math.abs(parseInt($(this).prev().val()))+1)
-    })
-    $(document).on('click','.min',function(evt){
-      const div = $(evt.target).closest('.p_unit');
-      const food_sid = div.attr('data-food_sid');
-      const input = div.find('input');
+      const price = div.find('.price').attr('data-price');
       let v = parseInt(input.val()) - 1;
       input.val( v );
-
-      // me.my_products[food_sid] = v ;
-      me.my_products['food_sid'] = food_sid ;
-      me.my_products['food_quantity'] = v
-      me.all_products.push(me.my_products)
-      console.log(me.my_products);
+      div.find('.discount').text(v*discount)
+      div.find('.price').text(v*price)
+      
+      if(me.my_products[food_sid]['food_quantity']<=1){
+        me.all_products.pop(me.my_products[food_sid])
+      } else {
+        me.my_products[food_sid]['food_quantity'] = v
+      }
+      me.total-=(parseInt(me.my_products[food_sid]['food_discount']))
+      $(document).find('.total').text(me.total)
       console.log(me.all_products)
-      // if($(this).next().val()>0){
-      //   $(this).next().val(Math.abs(parseInt($(this).next().val()))-1)
-      // }
+      console.log(me.total)
     })
   }
-  changePage = evt => {
-    window.location.href = "/purchase";
+  pay = evt => {
+    const me = this;
+    console.log(me.all_products)
+    fetch(`http://localhost/foodstory_end/PHP-and-SQL-master/php/store/storeAPI.php?seller_sid=${this.props.match.params.sid}`, {
+            method: 'POST',
+            mode:'cors',
+            credentials: 'include',
+            body: JSON.stringify(me.all_products),
+            headers: {
+              // 'Content-Type': 'application/json'
+            },
+        }).then(function (response) {   
+          return response.json();
+        }).then(function(json){
+          console.log(json)
+          console.log('成功囉');
+          // if (json.resultCode==200){
+          //   $('#success').modal('show')
+          // }
+          // if (json.resultCode==404){
+          //   $('#fail').modal('show')
+          // }
+        }).catch(function(err) {
+          console.log('失敗囉',err)
+        })
+
+    // window.location.href = "/purchase";
   }
   addColor = evt => {
     let like = document.querySelector("#like");
     like.classList.toggle("red_color");
   };
 
-  addNum = (evt) => {
-    num++;
-    console.log(num);
-    this.setState({
-      num:num
-    });
-  };
-  minusNum = evt => {
-    if (num > 0) {
-      num--;
-    }
-    console.log(num);
-    this.setState({
-      num:num
-    });
-  };
+  // addNum = (evt) => {
+  //   num++;
+  //   console.log(num);
+  //   this.setState({
+  //     num:num
+  //   });
+  // };
+  // minusNum = evt => {
+  //   if (num > 0) {
+  //     num--;
+  //   }
+  //   console.log(num);
+  //   this.setState({
+  //     num:num
+  //   });
+  // };
 
   credit = evt => {
     let credit = document.querySelector('#credit')
@@ -281,14 +311,14 @@ class Products_detail extends Component {
                     <div className="row justify-content-center">
                       <div className="col-4">
                         <p className="notoSans font_1 text-center">
-                          數量 <span className="color_70 font_1">還剩{products.food_quantity}個</span>
+                          數量 <span data-num={products.food_quantity} className="color_70 font_1 num">還剩{products.food_quantity}個</span>
                         </p>
                       </div>
                     </div>
                     <div className="row justify-content-end">
                       <div className="col-4">
                         <p className="notoSans color_70 text-right font_2 line-through">
-                          ${products.food_price}
+                          $<span className="price" data-price={products.food_price}>0</span>
                         </p>
                       </div>
                     </div>
@@ -300,7 +330,7 @@ class Products_detail extends Component {
                         <p className="text-center font_2">
                           <span
                             // onClick={this.minusNum}
-                            className="btn_num font_3 font_600 mr-3 pointer min"
+                            className="btn_num font_3 font_600 mr-3 pointer min user_select"
                           >
                             -
                           </span>
@@ -308,7 +338,7 @@ class Products_detail extends Component {
                           <input className="w_25 text-center" type="text" value="0"></input>
                           <span
                             // onClick={this.addNum}
-                            className="btn_num font_3 font_600 ml-3 pointer add"
+                            className="btn_num font_3 font_600 ml-3 pointer add user_select"
                           >
                             +
                           </span>
@@ -344,23 +374,22 @@ class Products_detail extends Component {
           <div class="row justify-content-end">
             <div class="col-8 d-flex py-3">
               <p className="notoSans font_3 mr-4 ml-auto my-auto">
-                總金額 : <span className="color_orange">$70</span>
+                總金額 : <span className="color_orange">$<span className="total">0</span></span>
               </p>
 
-              <Link
+              <sapn
                 data-toggle="modal"
-                data-target="#pay"
-                className="btn_solid3 font_3 notoSans"
-                to
+                data-target="#confirm"
+                className="btn_solid3 font_3 notoSans user_select"               
               >
                 結帳
-              </Link>
+              </sapn>
             </div>
           </div>
         </div>
 
         {/* 付款方式彈出視窗 */}
-        <div
+        {/* <div
           class="modal fade"
           id="pay"
           tabindex="-1"
@@ -405,13 +434,7 @@ class Products_detail extends Component {
               </div>
 
               <div class="modal-footer row">
-                {/* <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button> */}
+                
                 <div class="col">
                   <p data-toggle="modal" data-dismiss="modal" data-target="#confirm" class="notoSans w_100 btn_solid1 font_2 text-center pointer" to>
                     確認
@@ -421,7 +444,7 @@ class Products_detail extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* 確認購買彈出視窗 */}
         <div
@@ -469,7 +492,7 @@ class Products_detail extends Component {
                   </p>
                 </div>
                 <div class="col">
-                  <p onClick={this.changePage} className="notoSans w_100 btn_solid1 font_2 text-center pointer">
+                  <p onClick={this.pay} className="notoSans w_100 btn_solid1 font_2 text-center pointer">
                     {/* <Link to="/purchase"  class="btn_solid1">                                        */}
                       確認
                     {/* </Link>  */}

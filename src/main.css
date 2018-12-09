@@ -24,6 +24,9 @@
 .opacity_0{
     opacity:0;
 }
+.user_select{
+    user-select: none;
+}
 .navbar{
     transition: .5s;
 }
@@ -72,6 +75,10 @@
 .font_6{
     font-size: 5.5rem;
 }
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    }
 .logo_border{ 
     border: 2px solid white;
     border-radius: 5px;
@@ -338,6 +345,9 @@
 .vh_65{ /*首頁專欄照片用*/
     height: 65vh;
 }
+.vh_70{
+    height: 70vh;
+}
 .vh_75{ /*會員中心左邊用*/
     height: 75vh;
 }
@@ -447,6 +457,9 @@
 }
 .form-control1{ 
     border-style:solid;
+}
+.form-control2{  /*專欄PO文用*/
+    border-style:none;
 }
 .circle{ /*店家logo用*/
     border-radius: 50%;

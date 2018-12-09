@@ -29,6 +29,7 @@ import UserB_picked from "./components/UserB_picked";
 import UserB_comment from "./components/UserB_comment";
 import Blog from "./components/Blog";
 import Blog_detail from "./components/Blog_detail";
+import Blog_admin from "./components/Blog_admin";
 
 library.add(faStroopwafel);
 
@@ -60,6 +61,7 @@ class App extends Component {
           <Route path="/userb_comment" component={UserB_comment} />
           <Route path="/blog" component={Blog} />
           <Route path="/blog_detail" component={Blog_detail} />
+          <Route path="/blog_admin" component={Blog_admin} />
         </div>
       </BrowserRouter>
     );
