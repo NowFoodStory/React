@@ -19,6 +19,48 @@ import Footer from "./Footer";
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      _blog_title:"",
+      _blog_author:"",
+      _blog_photo:"",
+      _blog_content:"",
+      _blog_sid:"",
+
+      blogs:[],
+    }
+    /*讀取部落格資料 */
+    fetch("http://localhost/foodstory_end/PHP-and-SQL-master/php/blog/blogAPI.php", { 
+      method: 'GET',
+      mode:'cors',
+      credentials: 'include',
+      body: JSON.stringify(),
+    }).then(function (response) {
+      // console.log(response.json())         
+      return response.json();
+    }).then(json => {
+      console.log(json)
+      this.setState({ 
+        _blog_title:json[0].blog_title,
+        _blog_author:json[0].blog_author,
+        _blog_photo:json[0].blog_photo,
+        _blog_content:json[0].blog_content,
+        _blog_sid:json[0].blog_sid,
+
+        blogs:json.slice(1,4),
+      }) 
+      var len = 50; // 超過50個字以"..."取代
+    $(".ellipsis").each(function(i){
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+      console.log(this.state._blog_content)   
+    }).catch(function(err) {
+      console.log('失敗囉',err)
+    })   
+
   }
   componentDidMount(){ 
         
@@ -114,24 +156,24 @@ class Home extends Component {
         </div>
         <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="row reset px_10 mt-4 justify-content-between mb-5 pb-5">
           <div className="col-7 vh_65 relative">
-            <img className="img-fluid vh_65 object_fit w_100" src={waste}></img>
+            <img className="img-fluid vh_65 object_fit w_100" src={"http://localhost:3000/uploads/" + this.state._blog_photo}></img>
             <div className="white_bg reset p-2 absolute bottom_0 right_0 col-8 notoSans translate">
               <div className="white_bg2 p-4">
-                <p className="font_3 font_600 letter_space1 hover_orange pointer">
-                  解決食物浪費 環團相約「IG世代」自煮自食
+                <Link to={`/blog_detail/${this.state._blog_sid}`} className="font_3 font_600 letter_space1 hover_orange pointer color_black">
+                  {this.state._blog_title}
+                </Link>
+                <p className="font_1 letter_space mt-2">
+                  文/{this.state._blog_author}
                 </p>
-                <p className="font_1 letter_space">
-                  文/賴溫狠
-                </p>
-                <p className="font_1 reset letter_space text-justify">
-                  台灣食物浪費主要發生在消費端，而其中不懂烹煮、愛拍照的年輕世代，最容易發生食物浪費的狀況...
+                <p className="font_1 reset letter_space text-justify ellipsis">
+                  {this.state._blog_content}
                 </p>
               </div>             
             </div>
           </div>
 
           <div className="col-4 notoSans">
-            <div className="row">
+            {/* <div className="row">
               <img className="icon_size1 col-2" src={arrow}></img>
               <p className="font_2 col-10 px-0 letter_space hover_orange pointer">            
                 香港勞團回收剩食 盼需要的人都能「食德好」<br/>
@@ -145,15 +187,17 @@ class Home extends Component {
                 德國拯救剩食運動擴散來台 「享食台灣」正發芽<br/>
                 <span className="font_1 color_70">文/彭瑞祥</span>
               </p>
-            </div>
+            </div> */}
 
-            <div className="row mt-2">
+            {this.state.blogs.map(blogs=>
+            <div key={blogs.blog_sid} className="row mt-2 mb-4">
               <img className="icon_size1 col-2 z_index" src={arrow}></img>
-              <p className="font_2 col-10 px-0 letter_space hover_orange pointer">            
-                苗栗愛心食材交流平台 選定三市場試辦<br/>
+              <Link to={`/blog_detail/${blogs.blog_sid}`} className="font_2 col-10 px-0 letter_space hover_orange color_black pointer">            
+                {blogs.blog_title}<br/>
                 <span className="font_1 color_70">文/陳秀玲</span>
-              </p>
+              </Link>
             </div>
+            )}
 
           </div>
         </div>

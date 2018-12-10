@@ -23,6 +23,48 @@ import blog_1 from "../images/blog_1.jpg"
 class Blog extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      _blog_title:"",
+      _blog_author:"",
+      _blog_photo:"",
+      _blog_content:"",
+      _blog_sid:"",
+
+      blogs:[],
+    }
+
+    /*讀取部落格資料 */
+    fetch("http://localhost/foodstory_end/PHP-and-SQL-master/php/blog/blogAPI.php", { 
+      method: 'GET',
+      mode:'cors',
+      credentials: 'include',
+      body: JSON.stringify(),
+    }).then(function (response) {
+      // console.log(response.json())         
+      return response.json();
+    }).then(json => {
+      console.log(json)
+      this.setState({ 
+        _blog_title:json[0].blog_title,
+        _blog_author:json[0].blog_author,
+        _blog_photo:json[0].blog_photo,
+        _blog_content:json[0].blog_content,
+        _blog_sid:json[0].blog_sid,
+
+        blogs:json.slice(1,json.length),
+      }) 
+      var len = 50; // 超過50個字以"..."取代
+    $(".ellipsis").each(function(i){
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+      console.log(this.state._blog_content)   
+    }).catch(function(err) {
+      console.log('失敗囉',err)
+    })   
   }
   componentDidMount(){ 
           
@@ -42,19 +84,19 @@ class Blog extends Component {
           <Nav />
           
           <div className="container-fluid row justify-content-center reset px_10 py-5 mt-5">  
-              
-            <div className="col-10 vh_70 relative mx-auto">           
-                <img className="img-fluid vh_70 object_fit w_100" src={waste}></img>
-                <div className="white_bg reset p-2 absolute bottom_0 mb-3 col-7 notoSans left_50 translate_left">
+            {/* 第一篇大的 */}
+            <div className="col-10 vh_70 relative mx-auto px-0">           
+                <img className="img-fluid vh_70 object_fit w_100" src={"http://localhost:3000/uploads/" + this.state._blog_photo}></img>
+                <div className="white_bg reset p-2 absolute bottom_0 mb-3 col-6 notoSans left_50 translate_left">
                 <div className="white_bg2 p-4">
-                    <Link to="/blog_detail" className="font_3 font_600 letter_space1 hover_orange pointer color_black">
-                    解決食物浪費 環團相約「IG世代」自煮自食
+                    <Link to={`/blog_detail/${this.state._blog_sid}`} className="font_3 font_600 letter_space1 hover_orange pointer color_black">
+                        {this.state._blog_title}
                     </Link>
                     <p className="font_1 letter_space mt-3">
-                    文/賴溫狠
+                        文/{this.state._blog_author}
                     </p>
-                    <p className="font_1 reset letter_space text-justify">
-                    台灣食物浪費主要發生在消費端，而其中不懂烹煮、愛拍照的年輕世代，最容易發生食物浪費的狀況...
+                    <p data-content={this.state._blog_content} className="font_1 reset letter_space text-justify ellipsis content">
+                        {this.state._blog_content}
                     </p>
                 </div>             
                 </div>                                      
@@ -64,27 +106,15 @@ class Blog extends Component {
                                
 
           <div className="container-fluid row justify-content-center reset px_10">
-            <div className="col-3 vh_50 upper box_shadow2 px-0 notoSans mt-5 mx-3">
-                <img className="img-fluid vh_25 w_100 object_fit pointer" src={blog_1}></img>
-                <p className="font_1 mx-3 mt-3 hover_orange">香港勞團回收剩食 盼需要的人都能「食德好」</p>
-                <p className=" mx-3 mt-3">文/陳倢伃</p>
+          {/* 好幾篇小的 */}
+          {this.state.blogs.map(blogs=>
+            <div key={blogs.blog_sid} className="col-3 vh_50 upper box_shadow2 px-0 notoSans mt-5 mx-4">
+                <img className="img-fluid vh_25 w_100 object_fit mb-3" src={"http://localhost:3000/uploads/" + blogs.blog_photo}></img>
+                <Link to={`/blog_detail/${blogs.blog_sid}`} className="font_1 mx-3 hover_orange color_black">{blogs.blog_title}</Link>
+                <p className=" mx-3 mt-3">文/{blogs.blog_author}</p>
             </div>
-
-            <div className="col-3 vh_50 upper box_shadow2 px-0 notoSans mt-5 mx-3">
-                <img className="img-fluid vh_25 w_100 object_fit" src={blog_1}></img>
-                <p className="font_1 mx-3 mt-3 hover_orange">香港勞團回收剩食 盼需要的人都能「食德好」</p>
-                <p className=" mx-3 mt-3">文/陳倢伃</p>
-            </div>
-
-            <div className="col-3 vh_50 upper box_shadow2 px-0 notoSans mt-5 mx-3">
-                <img className="img-fluid vh_25 w_100 object_fit" src={blog_1}></img>
-                <p className="font_1 mx-3 mt-3 hover_orange">香港勞團回收剩食 盼需要的人都能「食德好」</p>
-                <p className=" mx-3 mt-3">文/陳倢伃</p>
-            </div>
-            
-                               
-            
-            
+            )}
+                                                     
           </div>
         </div>
         <div className="mt-5"></div>

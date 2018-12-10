@@ -44,7 +44,7 @@ class App extends Component {
           {/* <Route path="/products_detail" component={Products_detail} /> */}
           <Route path="/products_detail/:sid" component={Products_detail} />
           <Route path="/products_comment" component={Products_comment} />
-          <Route path="/purchase" component={Purchase} />
+          <Route path="/purchase/:numb_sid" component={Purchase} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/userc_account" component={UserC_account} />
@@ -60,7 +60,7 @@ class App extends Component {
           <Route path="/userb_picked" component={UserB_picked} />
           <Route path="/userb_comment" component={UserB_comment} />
           <Route path="/blog" component={Blog} />
-          <Route path="/blog_detail" component={Blog_detail} />
+          <Route path="/blog_detail/:blog_sid" component={Blog_detail} />
           <Route path="/blog_admin" component={Blog_admin} />
         </div>
       </BrowserRouter>

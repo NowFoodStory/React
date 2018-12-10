@@ -75,10 +75,15 @@
 .font_6{
     font-size: 5.5rem;
 }
-pre {
+pre{
     white-space: pre-wrap;
     word-wrap: break-word;
-    }
+}
+.ellipsis{ /*文字超過一行就會...*/
+    /* overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
 .logo_border{ 
     border: 2px solid white;
     border-radius: 5px;
@@ -266,6 +271,9 @@ pre {
 }
 .nav_color{ /*navbar背景色*/
     background:#73D9B7;
+}
+.right_0{
+    right:0;
 }
 .left_0{
     left: 0;

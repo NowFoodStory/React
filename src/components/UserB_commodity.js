@@ -72,7 +72,13 @@ class UserB_commodity extends Component {
         }) 
         
         // $(document).on('click','.edit',function(evt){
-        //    $('#food_name').val($(this).find('p:nth-child(1)').text())
+        //    $('#food_name').val($(this).find('.food_name').attr('data-food_name'))
+        //    $('#food_class').val($(this).find('.food_class').attr('data-food_class'))
+        //    $('#food_quantity').val($(this).find('.food_quantity').attr('data-food_quantity'))
+        //    $('#food_price').val($(this).find('.food_price').attr('data-food_price'))
+        //    $('#food_discount').val($(this).find('.food_discount').attr('data-food_discount'))
+        //    $('#food_photo').attr('src',"http://localhost:3000/uploads/" + $(this).find('.food_photo').attr('data-food_photo'))
+        //    console.log($(this).find('.food_photo').attr('data-food_photo'))
         // })
 
     }
@@ -111,8 +117,7 @@ class UserB_commodity extends Component {
           }                    
         }).catch(function(err) {
           console.log('失敗囉',err)
-        })  
-              
+        })               
     }
     
     handleChange = (evt) => { 
@@ -156,9 +161,13 @@ class UserB_commodity extends Component {
           console.log('成功囉');
         }).catch(function(err) {
           console.log('失敗囉',err)
-        })        
-        let form2 = document.querySelector('#form2')
-        form2.submit() 
+        })  
+
+        if($('#file').change){ /* 如果檔案有更動才上傳到node */
+          let form2 = document.querySelector('#form2')
+          form2.submit() 
+        }                   
+        window.location.href="http://localhost:3001/userb_commodity"
     }
 
     delete = (evt) => { /* 刪除商品 */
@@ -216,24 +225,24 @@ class UserB_commodity extends Component {
                                 </p>                                                                                                   
                         </Link>                       
 
-                        {/* 讀取陣列將商品動態新增 */}                      
+                        {/* 讀取陣列將商品動態新增*/}                      
                         {this.state.products.map(products=>  
                         <div onClick={this.edit} key={products.food_sid} data-id={products.food_sid} className="col-4 vh_25 relative mt-3 edit">                       
                             <img id={products.food_sid} data-toggle="modal" data-target="#edit" className="img-fluid w_100 absolute pointer" src={"http://localhost:3000/uploads/" + products.food_photo}></img>
                             <div className="row absolute white_bg reset w_100 bottom_0">
-                                <div className="col reset">
-                                    <p className="notoSans font_500 font_1 ml-2">
+                                <div data-food_photo={products.food_photo} className="col reset food_photo">
+                                    <p data-food_name={products.food_name} className="notoSans font_500 font_1 ml-2 food_name">
                                         {products.food_name}
                                     </p>
-                                    <p className="notoSans font_1 ml-2">
+                                    <p data-food_discount={products.food_discount} className="notoSans font_1 ml-2 food_discount">
                                         ${products.food_discount}
                                     </p>
                                 </div>
-                                <div className="col text-right">
+                                <div data-food_class={products.food_class} className="col text-right food_class">
                                     <p className="notoSans font_1 mr-2">
-                                        商品數量<span>{products.food_quantity}</span>
+                                        商品數量<span className="food_quantity" data-food_quantity={products.food_quantity}>{products.food_quantity}</span>
                                     </p>
-                                    <p className="notoSans color_70 font_1 mr-2">
+                                    <p data-food_price={products.food_price} className="notoSans color_70 font_1 mr-2 food_price">
                                         已售出<span>2</span>
                                     </p>
                                 </div>
@@ -278,12 +287,12 @@ class UserB_commodity extends Component {
 
                                     <form id="form2" action="http://localhost:3000/upload_commodity" method="post" enctype="multipart/form-data" className="">
                                       <div className="row mt-4 mx-1 vh_25 commodity_border text-center justify-content-center">
-                                            <img id={this.state.food_sid} className="img-fluid mx-1 vh_25 absolute pointer" src={"http://localhost:3000/uploads/" + this.state.food_photo}></img>
+                                            <img id="food_photo" className="img-fluid mx-1 vh_25 absolute pointer" src={"http://localhost:3000/uploads/" + this.state.food_photo}></img>
                                             {preview}
                                             
                                           {/* 上傳照片 */}
                                             <label className="col btn btn-info absolute vh_25 left_0 opacity_0">
-                                              <input name="file" onChange={this.choosePhoto} className="" type="file"></input> 
+                                              <input id="file" name="file" onChange={this.choosePhoto} className="" type="file"></input> 
                                             </label>                                
                                           
                                       </div>

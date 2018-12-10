@@ -86,10 +86,14 @@ class Products_detail extends Component {
       const div = $(evt.target).closest('.p_unit');
       const food_sid = div.attr('data-food_sid');
       const input = div.find('input');
+      const photo = div.find('.food_photo').attr('data-food_photo')
+      const name = div.find('.food_name').attr('data-food_name')
       const discount = div.find('.discount').attr('data-dis'); //售價
       const price = div.find('.price').attr('data-price'); //原價
       const num = div.find('.num').attr('data-num'); //庫存數量
+      // for (let v = parseInt(input.val());v<=num;v++){
       
+      // }
       let v = parseInt(input.val()) +1;
       input.val( v );
       div.find('.discount').text(v*discount)
@@ -101,7 +105,9 @@ class Products_detail extends Component {
         me.my_products[food_sid] = {
           "food_sid": food_sid,
           "food_quantity": v,
-          "food_discount": discount
+          "food_discount": discount,
+          "food_photo":photo,
+          "food_name":name
         };
         me.all_products.push(me.my_products[food_sid])       
       }  
@@ -148,9 +154,9 @@ class Products_detail extends Component {
         }).then(function(json){
           console.log(json)
           console.log('成功囉');
-          // if (json.resultCode==200){
-          //   $('#success').modal('show')
-          // }
+          if (json.resultCode==200){
+            window.location.href = `/purchase/${json.Numb_sid}`;
+          }
           // if (json.resultCode==404){
           //   $('#fail').modal('show')
           // }
@@ -158,7 +164,7 @@ class Products_detail extends Component {
           console.log('失敗囉',err)
         })
 
-    // window.location.href = "/purchase";
+    
   }
   addColor = evt => {
     let like = document.querySelector("#like");
@@ -304,7 +310,7 @@ class Products_detail extends Component {
               <div className="p_unit" key={products.food_sid} data-food_sid={products.food_sid}>
                   <div className="row mt-1">
                   <div className="col-4 vh_25">
-                    <img src={"http://localhost:3000/uploads/" + products.food_photo} className="img-fluid w_100 " />
+                    <img data-food_photo={products.food_photo} src={"http://localhost:3000/uploads/" + products.food_photo} className="img-fluid w_100 food_photo" />
                   </div>
 
                   <div className="col-8">
@@ -324,7 +330,7 @@ class Products_detail extends Component {
                     </div>
                     <div className="row">
                       <div className="col-4">
-                        <h5 className="notoSans letter_space1">{products.food_name}</h5>
+                        <h5 data-food_name={products.food_name} className="notoSans letter_space1 food_name">{products.food_name}</h5>
                       </div>
                       <div className="col-4">
                         <p className="text-center font_2">

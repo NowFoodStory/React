@@ -177,6 +177,7 @@ class UserB_shop extends Component {
             }).catch(function(err) {
               console.log('失敗囉',err)
             }) 
+        window.location.href="http://localhost:3001/userb_shop"
     }
 
     chooseCover = (evt) => { /*選擇相片 */
