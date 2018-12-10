@@ -50,7 +50,7 @@ class Purchase extends Component {
             seller_phone:json.sellerData[0].seller_phone,
 
             foods:json.FoodData,
-        })    
+        })
     }).catch(function(err) {
         console.log('失敗囉',err)
     })
@@ -106,7 +106,7 @@ componentDidMount(){
                         <div class="row px-3">
                             <div className="col d-flex">
                                 <img className="icon_size2" src={time}></img>
-                                <p className="notoSans font_2 ml-3 mx-0 my-0" href="">
+                                <p className="notoSans font_2 ml-3 mx-0 my-0 letter_space">
                                     {this.state.opening}-{this.state.close_time}
                                 </p>                               
                             </div>
@@ -120,7 +120,7 @@ componentDidMount(){
                         <div class="row px-3">
                             <div className="col d-flex">
                                 <img className="icon_size2" src={phone}></img>
-                                <p className="notoSans font_2 ml-3 mx-0 my-0" href="">
+                                <p className="notoSans font_2 ml-3 mx-0 my-0 letter_space">
                                     {this.state.seller_phone}
                                 </p>                               
                             </div>
@@ -131,7 +131,7 @@ componentDidMount(){
                             </div>                            
                         </div>
 
-                        {/* 以下為商品1 */}
+                        {/* 以下為商品 */}
                         {this.state.foods.map(foods=>
                         <div className="div" key={foods.food_sid}>
                             <div class="row mt-3 px-3">

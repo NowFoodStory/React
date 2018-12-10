@@ -91,8 +91,7 @@ class Products_detail extends Component {
       const discount = div.find('.discount').attr('data-dis'); //售價
       const price = div.find('.price').attr('data-price'); //原價
       const num = div.find('.num').attr('data-num'); //庫存數量
-      // for (let v = parseInt(input.val());v<=num;v++){
-      
+      // for (let v = parseInt(input.val());v<=num;v++){    
       // }
       let v = parseInt(input.val()) +1;
       input.val( v );
