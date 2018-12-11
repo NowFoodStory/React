@@ -81,12 +81,17 @@ class UserC_account extends Component {
           account.classList.remove('account_active','py-1')
         }
 
-        if (window.location.href=="http://localhost:3001/userc_order"){
+        if (window.location.href=="http://localhost:3001/userc_order" ){
           let order = document.querySelector('#order')
           order.classList.add('order_active','py-1')
         } else{
           let order = document.querySelector('#order')
           order.classList.remove('order_active','py-1')
+        }
+
+        if (window.location.href=="http://localhost:3001/userc_order_detail"){
+          let order = document.querySelector('#order')
+          order.classList.add('order_active','py-1')
         }
 
         if (window.location.href=="http://localhost:3001/userc_picked"){

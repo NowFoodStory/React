@@ -99,14 +99,14 @@ class Products_detail extends Component {
       div.find('.price').text(v*price)    
 
       if(me.my_products[food_sid]){ 
-        me.my_products[food_sid]['food_quantity'] = v;
+        me.my_products[food_sid]['food_quantity'] = v;  
       } else {       
-        me.my_products[food_sid] = {
-          "food_sid": food_sid,
+        me.my_products[food_sid] = {                
           "food_quantity": v,
           "food_discount": discount,
           "food_photo":photo,
-          "food_name":name
+          "food_name":name,
+          "food_sid":food_sid
         };
         me.all_products.push(me.my_products[food_sid])       
       }  
@@ -132,7 +132,7 @@ class Products_detail extends Component {
         me.my_products[food_sid]['food_quantity'] = v
       }
       me.total-=(parseInt(me.my_products[food_sid]['food_discount']))
-      $(document).find('.total').text(me.total)
+      $(document).find('.total').text(me.total)     
       console.log(me.all_products)
       console.log(me.total)
     })
@@ -140,7 +140,7 @@ class Products_detail extends Component {
   pay = evt => {
     const me = this;
     console.log(me.all_products)
-    fetch(`http://localhost/foodstory_end/PHP-and-SQL-master/php/store/storeAPI.php?seller_sid=${this.props.match.params.sid}`, {
+    fetch(`http://localhost/foodstory_end/PHP-and-SQL-master/php/store/storeAPI.php?seller_sid=${this.props.match.params.sid}&total=${me.total}`, {
             method: 'POST',
             mode:'cors',
             credentials: 'include',
@@ -154,7 +154,7 @@ class Products_detail extends Component {
           console.log(json)
           console.log('成功囉');
           if (json.resultCode==200){
-            window.location.href = `/purchase/${json.Numb_sid}`;
+            window.location.href = `/purchase/${json.Numb_sid}/${me.total}`;
           }
           // if (json.resultCode==404){
           //   $('#fail').modal('show')

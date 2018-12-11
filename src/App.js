@@ -17,6 +17,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import UserC_account from "./components/UserC_account";
 import UserC_order from "./components/UserC_order";
+import UserC_order_detail from "./components/UserC_order_detail";
 import UserC_picked from "./components/UserC_picked";
 import UserC_notice from "./components/UserC_notice";
 import UserC_mail from "./components/UserC_mail";
@@ -44,11 +45,12 @@ class App extends Component {
           {/* <Route path="/products_detail" component={Products_detail} /> */}
           <Route path="/products_detail/:sid" component={Products_detail} />
           <Route path="/products_comment" component={Products_comment} />
-          <Route path="/purchase/:numb_sid" component={Purchase} />
+          <Route path="/purchase/:numb_sid/:total" component={Purchase} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/userc_account" component={UserC_account} />
           <Route path="/userc_order" component={UserC_order} />
+          <Route path="/userc_order_detail" component={UserC_order_detail} />
           <Route path="/userc_picked" component={UserC_picked} />
           <Route path="/userc_notice" component={UserC_notice} />
           <Route path="/userc_mail" component={UserC_mail} />

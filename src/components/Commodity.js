@@ -86,7 +86,7 @@ class Commodity extends Component {
           </div>
         </div>
         {/* ------------以下為一家店------------ */}
-        <div className="row mt-3 ml-5">
+        {/* <div className="row mt-3 ml-5">
           <div className="col-2">
             <figure className="circle figure">
               <img className="img-fluid" src={logo}></img>
@@ -189,8 +189,7 @@ class Commodity extends Component {
           <div className="col">
             <hr/>
           </div>       
-        </div>
-
+        </div> */}
       {/* ------------以上為一家店------------ */}
 
       {/* ------------以下為一家店------------ */}

@@ -165,7 +165,7 @@ componentDidMount(){
                             </div>
                             <div className="col">
                                 <p className="notoSans font_4 text-right ">
-                                    總金額 : <span className="color_orange">$70</span>
+                                    總金額 : <span className="color_orange">${this.props.match.params.total}</span>
                                 </p>
                             </div>
                         </div>
