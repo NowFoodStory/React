@@ -90,10 +90,13 @@ class UserB_order extends Component {
         })
 
         $(document).on('click','.change',function(evt){
+            $('tbody').find('tr').removeClass('active_gray')
+            $(this).addClass('active_gray')           
             let Numb_sid = {Numb_sid:$(this).attr('data-sid')}
             me.setState({
                 Numb_sid:Numb_sid
             })
+            console.log(me.state.Numb_sid)
         })
                              
     }
