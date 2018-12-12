@@ -240,7 +240,7 @@ class Blog_admin extends Component {
             <div key={blogs.blog_sid} className="col-3 vh_50 upper box_shadow2 px-0 notoSans mt-5 mx-4">
                 <img data-blog_sid={blogs.blog_sid} data-toggle="modal" data-target="#deleteSmall" src={close} className="icon_size1 absolute right_0 m-3 pointer blog_sid"></img>
                 <img className="img-fluid vh_25 w_100 object_fit mb-3" src={"http://localhost:3000/uploads/" + blogs.blog_photo}></img>          
-                <Link to={`/blog_detail/${blogs.blog_sid}`} className="font_1 mx-3 hover_orange color_black">{blogs.blog_title}</Link>
+                <Link className="color_black" to={`/blog_detail/${blogs.blog_sid}`}><p className="font_1 mx-3 hover_orange color_black">{blogs.blog_title}</p></Link>
                 <p className=" mx-3 mt-3">文/{blogs.blog_author}</p>
             </div>
             )}

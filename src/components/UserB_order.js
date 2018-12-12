@@ -112,8 +112,7 @@ class UserB_order extends Component {
           // console.log(response.json())         
           return response.json();
         }).then(json => {
-          console.log(json)
-              
+          console.log(json)              
         }).catch(function(err) {
           console.log('失敗囉',err)
         })

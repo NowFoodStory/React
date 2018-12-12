@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "../main.css";
+import $ from "jquery";
 
 import Nav from "./Nav";
 import Footer from "./Footer";
@@ -17,8 +18,34 @@ class Products extends Component {
           search:'',
             city:"縣市",
             place:"地區",
+
+            food_class:[],
+            sellers:[],
+            products:[],
         };
       this.handleChange = this.handleChange.bind(this);
+
+        // 讀取店家跟商品資料
+        fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
+            method: 'GET',
+            mode:'cors',
+            credentials: 'include',
+            body: JSON.stringify(),
+        }).then(function (response) {       
+        return response.json();
+        }).then(json => {
+        console.log(json)
+        console.log('成功囉');
+        this.setState({ 
+            sellers:json,
+            // products:json.foods
+        })     
+        console.log(this.state.sellers)
+        console.log(this.state.products)
+        }).catch(function(err) {
+        console.log('失敗囉',err)
+        })  
+
     }
     
     handleChange = (evt) => {
@@ -35,12 +62,52 @@ class Products extends Component {
         }
         
     }
+
+    componentDidMount() { 
+            
+    }
+
+    //確認勾選狀態
+    isCheck = evt => {
+        let checkboxs = document.querySelectorAll('.pl_10 input[type=checkbox]')
+        let vals = [];
+        checkboxs.forEach(function(el){ 
+
+            if(el.checked){ //如果這個checkbox被勾選
+                vals.push(el.value);
+            }
+            //console.log(el.checked)
+        }) 
+        console.log(vals);
+
+        //讀取店家跟商品資料
+        fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
+            method: 'POST',
+            mode:'cors',
+            credentials: 'include',
+            body: JSON.stringify(vals),
+        }).then(function (response) {       
+        return response.json();
+        }).then(json => {
+        console.log(json)
+        console.log('成功囉');
+        this.setState({ 
+            sellers:json,
+            // products:json.foods
+        })     
+        console.log(this.state.sellers)
+        console.log(this.state.products)
+        }).catch(function(err) {
+        console.log('失敗囉',err)
+        })  
+        
+    }
     
     render() {
       return (
         <React.Fragment>
             <Nav/>
-          <div className="vh_100 pt_72">
+          <div className=" pt_72">
             
             <div className="container-fluid reset pr_10">
               <div className="row">
@@ -102,31 +169,31 @@ class Products extends Component {
                             種類
                         </p>
                         <div className="form-check mb-2">
-                            <input className="form-check-input" type="checkbox" value="" id="check"></input>
+                            <input className="form-check-input" type="checkbox" value="麵包" onChange={this.isCheck}></input>
                             <label className="form-check-label notoSans" for="check">
                                 麵包
                             </label>
                         </div>
                         <div className="form-check mb-2">
-                            <input className="form-check-input" type="checkbox" value="" id="check"></input>
+                            <input className="form-check-input" type="checkbox" value="甜點" onChange={this.isCheck}></input>
                             <label className="form-check-label notoSans" for="check">
                                 甜點
                             </label>
                         </div>
                         <div className="form-check mb-2">
-                            <input className="form-check-input" type="checkbox" value="" id="check"></input>
+                            <input className="form-check-input" type="checkbox" value="飲品" onChange={this.isCheck}></input>
                             <label className="form-check-label notoSans" for="check">
                                 飲品
                             </label>
                         </div>
                         <div className="form-check mb-2">
-                            <input className="form-check-input" type="checkbox" value="" id="check"></input>
+                            <input className="form-check-input" type="checkbox" value="熟食" onChange={this.isCheck}></input>
                             <label className="form-check-label notoSans" for="check">
                                 熟食
                             </label>
                         </div>
                         <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="check"></input>
+                            <input className="form-check-input" type="checkbox" value="壽司" onChange={this.isCheck}></input>
                             <label className="form-check-label notoSans" for="check">
                                 壽司
                             </label>
@@ -134,7 +201,7 @@ class Products extends Component {
                     </div>
                 </div>
                 <div className="col-8 ml-auto">
-                    <Commodity/>
+                    <Commodity sellers={this.state.sellers}/>
                     
                 </div>
               </div>
