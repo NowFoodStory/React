@@ -359,6 +359,9 @@ pre{
 .vh_75{ /*會員中心左邊用*/
     height: 75vh;
 }
+.h_80{
+    height: 80px;;
+}
 .w_25{
     width: 25%;
 }

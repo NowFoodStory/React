@@ -118,6 +118,7 @@ class Map_page extends Component {
                     /> */}
 
                     <Map google={this.props.google} zoom={15}
+                         onClick={this.onMapClicked}
                          style={style}
                          initialCenter={{
                           lat: 25.033804,
@@ -128,24 +129,29 @@ class Map_page extends Component {
  
                       <Marker onClick={this.onMarkerClick}
                               title={'The marker`s title will appear as a tooltip.'}
-                              // icon={{
-                              //   url: "http://localhost:3000/uploads/1.png",
-                                
-                              // }}
-                              style={{height:`5px`}}
+                              icon={{
+                                url: "http://localhost:3000/uploads/location.svg",
+                              }}
+                              src={'http://localhost:3000/uploads/16121861_1546636742028170_141390345_o.jpg'}
                               name={'木村屋 Kimuraya'}
                               position={{lat: 25.037137, lng: 121.552805}}
                       />
                       <Marker onClick={this.onMarkerClick}
                               name={'Faomii Bakery 法歐米麵包工坊'}
                               position={{lat: 25.035224, lng: 121.548481}}
+                              
                       />
 
                       <InfoWindow onClose={this.onInfoWindowClose} 
                                   marker={this.state.activeMarker}
                                   visible={this.state.showingInfoWindow}>>
-                          <div>
-                            <h1>{this.state.selectedPlace.name}</h1>
+                          <div className="row reset">
+                            <div className="col text-center">
+                              <figure className="circle figure">
+                                <img className="w_100" src={this.state.selectedPlace.src}></img>
+                              </figure>                             
+                              <h5 className="notoSans text-center">{this.state.selectedPlace.name}</h5>
+                            </div>                          
                           </div>
                       </InfoWindow>
                     </Map>
