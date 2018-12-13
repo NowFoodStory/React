@@ -150,7 +150,7 @@ class Map_page extends Component {
                               <figure className="circle figure">
                                 <img className="w_100" src={this.state.selectedPlace.src}></img>
                               </figure>                             
-                              <h5 className="notoSans text-center">{this.state.selectedPlace.name}</h5>
+                              <h5 className="notoSans text-center"><a className="color_black hover_orange" href="http://localhost:3001/home">{this.state.selectedPlace.name}</a></h5>
                             </div>                          
                           </div>
                       </InfoWindow>
