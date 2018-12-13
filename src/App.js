@@ -32,6 +32,7 @@ import Blog from "./components/Blog";
 import Blog_detail from "./components/Blog_detail";
 import Blog_admin from "./components/Blog_admin";
 import User_admin from "./components/User_admin";
+import Seller_admin from "./components/Seller_admin";
 
 library.add(faStroopwafel);
 
@@ -66,6 +67,7 @@ class App extends Component {
           <Route path="/blog_detail/:blog_sid" component={Blog_detail} />
           <Route path="/blog_admin" component={Blog_admin} />
           <Route path="/user_admin" component={User_admin} />
+          <Route path="/seller_admin" component={Seller_admin} />
         </div>
       </BrowserRouter>
     );

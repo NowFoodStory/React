@@ -16,19 +16,17 @@ import $ from "jquery";
 import Nav from "./Nav";
 import Footer from "./Footer";
 
-class User_admin extends Component {
+class Seller_admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      sellers:[],
 
-      users:[],
-
-      user_id:"",
-      
+      seller_sid:"",
     }
 
     //讀取用戶資料
-    fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/Master/USER_API.php', {
+    fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/Master/SELLER_API.php', {
             method: 'GET',
             mode:'cors',
             credentials: 'include',
@@ -39,7 +37,7 @@ class User_admin extends Component {
         }).then(json => {
           console.log(json)
           this.setState({ 
-            users:json
+            sellers:json
           })     
         }).catch(function(err) {
           console.log('失敗囉',err)
@@ -47,24 +45,22 @@ class User_admin extends Component {
           
   }
 
-  
   componentDidMount(){ 
-
     let me = this;
     $(document).on('click','.change',function(evt){
       $('tbody').find('tr').removeClass('active_gray')
       $(this).addClass('active_gray')           
-      let user_id = {user_id:$(this).attr('data-id')}
+      let seller_sid = {seller_sid:$(this).attr('data-id')}
       me.setState({
-        user_id:user_id
+        seller_sid:seller_sid
       })
-      console.log(me.state.user_id)
+      console.log(me.state.seller_sid)
     })
   }
 
   delete = evt => {
-    let data = this.state.user_id
-    fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/Master/USER_API.php', {
+    let data = this.state.seller_sid
+    fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/Master/SELLER_API.php', {
         method: 'PUT',
         mode:'cors',
         credentials: 'include',
@@ -77,7 +73,7 @@ class User_admin extends Component {
     }).catch(function(err) {
       console.log('失敗囉',err)
     })
-    window.location.href="http://localhost:3001/user_admin"  
+    window.location.href="http://localhost:3001/seller_admin"  
 } 
   
   render() {
@@ -90,10 +86,10 @@ class User_admin extends Component {
             <div className="col-9 signup_white box_shadow2 p-5">
               <div className="row">
                 <div className="col">
-                  <Link className="color_green mr-2" to>一般會員</Link> <span className="color_green">|</span><Link className="color_70 ml-3" to="/seller_admin">店家會員</Link>
+                  <Link className="color_70 mr-2" to="user_admin">一般會員</Link> <span className="color_green">|</span><Link className="color_green ml-3" to>店家會員</Link>
                 </div>
                 <div className="col text-right">
-                  <span data-toggle="modal" data-target="#delete" class="btn btn_delete notoSans">停權</span>
+                  <button data-toggle="modal" data-target="#delete" class="btn btn_delete notoSans">停權</button>
                 </div>
               </div>
 
@@ -101,24 +97,24 @@ class User_admin extends Component {
                                 <thead>
                                     <tr>
                                     <th scope="col">編號</th>
-                                    <th scope="col">姓名</th>
+                                    <th scope="col">店名</th>
                                     <th scope="col">電話</th>                                    
                                     <th scope="col">信箱</th>
                                     </tr>
                                 </thead>
                                 <tbody className="order">
 
-                                  {this.state.users.map(users=>
-                                    <tr data-id={users.user_id} key={users.user_id} className="pointer change">
-                                    <th scope="row">{users.user_id}</th>
-                                    <td>{users.user_name}</td>
-                                    <td>{users.user_phone}</td>                                   
-                                    <td>{users.user_email}</td> 
-                                    {users.user_status === '1' ?  
+                                {this.state.sellers.map(sellers=>
+                                    <tr data-id={sellers.seller_sid} key={sellers.seller_sid} className="pointer change">
+                                    <th scope="row">{sellers.seller_sid}</th>
+                                    <td>{sellers.seller_name}</td>
+                                    <td>{sellers.seller_phone}</td>                                   
+                                    <td>{sellers.seller_email}</td>
+                                    {sellers.seller_status === '1' ?  
                                     <td className="bg-danger color_white">已停權</td>
-                                    :""}                              
+                                    :""}                                    
                                     </tr>
-                                  )}
+                                )}
 
                                     {/* 確認停權彈出視窗 */}
                                     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -146,8 +142,7 @@ class User_admin extends Component {
             </div>
             
           </div>
-
-          <Footer />
+        <Footer />
         </div>
 
         
@@ -157,4 +152,4 @@ class User_admin extends Component {
   }
 }
 
-export default User_admin;
+export default Seller_admin;

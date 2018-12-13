@@ -206,7 +206,7 @@ class Products extends Component {
                 </div>
               </div>
             </div>
-            <Footer/>
+            {/* <Footer/> */}
             
           </div>
           
