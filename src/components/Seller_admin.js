@@ -96,23 +96,25 @@ class Seller_admin extends Component {
               <table class="table table-hover notoSans font_1 mt-3">
                                 <thead>
                                     <tr>
-                                    <th scope="col">編號</th>
-                                    <th scope="col">店名</th>
-                                    <th scope="col">電話</th>                                    
-                                    <th scope="col">信箱</th>
+                                    <th scope="col" className="text-center">編號</th>
+                                    <th scope="col" className="text-center">店名</th>
+                                    <th scope="col" className="text-center">電話</th>                                    
+                                    <th scope="col" className="text-center">信箱</th>
+                                    <th scope="col" className="text-center">狀態</th>
                                     </tr>
                                 </thead>
                                 <tbody className="order">
 
                                 {this.state.sellers.map(sellers=>
                                     <tr data-id={sellers.seller_sid} key={sellers.seller_sid} className="pointer change">
-                                    <th scope="row">{sellers.seller_sid}</th>
-                                    <td>{sellers.seller_name}</td>
-                                    <td>{sellers.seller_phone}</td>                                   
+                                    <th scope="row" className="text-center">{sellers.seller_sid}</th>
+                                    <td className="text-center">{sellers.seller_name}</td>
+                                    <td className="text-center">{sellers.seller_phone}</td>                                   
                                     <td>{sellers.seller_email}</td>
                                     {sellers.seller_status === '1' ?  
-                                    <td className="bg-danger color_white">已停權</td>
-                                    :""}                                    
+                                    <td className="bg-danger color_white text-center">已停權</td>
+                                    :<td className="normal_bg color_white text-center">正常</td>
+                                    }                                    
                                     </tr>
                                 )}
 

@@ -33,6 +33,8 @@ import Blog_detail from "./components/Blog_detail";
 import Blog_admin from "./components/Blog_admin";
 import User_admin from "./components/User_admin";
 import Seller_admin from "./components/Seller_admin";
+import ScrollToTop from "./components/ScrollToTop";
+import Map_page from "./components/Map_page";
 
 library.add(faStroopwafel);
 
@@ -40,6 +42,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+      <ScrollToTop>
         <div className="container-fluid reset">
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
@@ -68,7 +71,9 @@ class App extends Component {
           <Route path="/blog_admin" component={Blog_admin} />
           <Route path="/user_admin" component={User_admin} />
           <Route path="/seller_admin" component={Seller_admin} />
+          <Route path="/map_page" component={Map_page} />
         </div>
+      </ScrollToTop>
       </BrowserRouter>
     );
   }

@@ -114,14 +114,14 @@ class Products extends Component {
                 <div className="col-4 gray_bg position-fixed">
                     <div className="pl_10 mt-5 pr-5">
                         <ul className="pl-0">
-                            <li className="d-inline font_2 notoSans color_70 font_500">                                
+                            <li className="d-inline font_2 notoSans color_green font_500">                                
                                 篩選器                                
                             </li>
-                            <li className="d-inline font_2 notoSans color_70 mx-2">
+                            <li className="d-inline font_2 notoSans color_green mx-2">
                                | 
                             </li>
                             <li className="d-inline font_2 notoSans color_70 font_500">
-                                美食地圖                               
+                                <Link className="color_70" to="/map_page">美食地圖 </Link>                              
                             </li>
                         </ul>
 

@@ -72,6 +72,9 @@ class Login extends Component {
           if (json.resultCode==404){
             $('#fail').modal('show')
           }
+          if (json.resultCode==444){
+            $('#stop').modal('show')
+          }
         }).catch(function(err) {
           console.log('失敗囉',err)
         })                
@@ -99,6 +102,9 @@ class Login extends Component {
           }
           if (json.resultCode==404){
             $('#fail').modal('show')
+          }
+          if (json.resultCode==444){
+            $('#stop').modal('show')
           }
         }).catch(function(err) {
           console.log('失敗囉',err)
@@ -293,10 +299,54 @@ class Login extends Component {
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
-                            <div class="modal-body row mt-3 ">
+                            <div class="modal-body row my-3 ">
                               
                               <div class="col notoSans font_2">
                                 帳號或密碼錯誤
+                              </div>
+                            </div>
+
+                            <div class="modal-footer row">
+                              
+                              <div class="col">
+                                <p data-toggle="modal" data-dismiss="modal" data-target="#confirm" class="notoSans w_100 btn_solid1 font_2 text-center pointer" to>
+                                  確認
+                                </p>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 停權彈出視窗 */}
+                      <div
+                        class="modal fade"
+                        id="stop"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="exampleModalCenterTitle"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content container-fluid">
+                            <div class="modal-header">
+                              <h5 class="modal-title notoSans font_3" id="exampleModalLongTitle">
+                                登入失敗
+                              </h5>
+                              <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body row my-3 ">
+                              
+                              <div class="col notoSans font_2">
+                                該用戶已被停權
                               </div>
                             </div>
 

@@ -100,23 +100,25 @@ class User_admin extends Component {
               <table class="table table-hover notoSans font_1 mt-3">
                                 <thead>
                                     <tr>
-                                    <th scope="col">編號</th>
-                                    <th scope="col">姓名</th>
-                                    <th scope="col">電話</th>                                    
-                                    <th scope="col">信箱</th>
+                                    <th scope="col" className="text-center">編號</th>
+                                    <th scope="col" className="text-center">姓名</th>
+                                    <th scope="col" className="text-center">電話</th>                                    
+                                    <th scope="col" className="text-center">信箱</th>
+                                    <th scope="col" className="text-center">狀態</th>
                                     </tr>
                                 </thead>
                                 <tbody className="order">
 
                                   {this.state.users.map(users=>
                                     <tr data-id={users.user_id} key={users.user_id} className="pointer change">
-                                    <th scope="row">{users.user_id}</th>
-                                    <td>{users.user_name}</td>
-                                    <td>{users.user_phone}</td>                                   
+                                    <th scope="row" className="text-center">{users.user_id}</th>
+                                    <td className="text-center">{users.user_name}</td>
+                                    <td className="text-center">{users.user_phone}</td>                                   
                                     <td>{users.user_email}</td> 
                                     {users.user_status === '1' ?  
-                                    <td className="bg-danger color_white">已停權</td>
-                                    :""}                              
+                                    <td className="bg-danger color_white text-center">已停權</td>
+                                    :<td className="normal_bg color_white text-center">正常</td>
+                                    }                              
                                     </tr>
                                   )}
 

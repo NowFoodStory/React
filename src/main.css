@@ -386,6 +386,9 @@ pre{
     height: auto;
     width: 100%;
 }
+.normal_bg{ /*會員帳號正常用*/
+    background: #73D9B7;
+}
 .account_active{ /*一般會員會員資料*/
     background: #F8F9FA;
     height: auto;
