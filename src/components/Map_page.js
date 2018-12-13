@@ -7,37 +7,42 @@ import $ from "jquery";
 
 import Nav from "./Nav";
 import Footer from "./Footer";
-import CitySelect from "./City_select";
-import AreaSelect from "./Area_select";
-import Commodity from "./Commodity";
-import {
-  GoogleMap,
-  Marker,
-  withGoogleMap,
-  withScriptjs,
-  InfoWindow
-} from "react-google-maps";
-import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
+// import {
+//   GoogleMap,
+//   Marker,
+//   withGoogleMap,
+//   withScriptjs,
+//   InfoWindow
+// } from "react-google-maps";
+// import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
-const MapWithAMarker = withGoogleMap(props =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  >
-    <Marker
-      position={{ lat: -34.397, lng: 150.644 }}
-    />
-  </GoogleMap>
-);
+// import {GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+ 
+
+
+
+
+// const MapWithAMarker = withGoogleMap(props =>
+//   <GoogleMap
+//     defaultZoom={8}
+//     defaultCenter={{ lat: -34.397, lng: 150.644 }}
+//   >
+//     <Marker
+//       position={{ lat: -34.397, lng: 150.644 }}
+//     />
+//   </GoogleMap>
+// );
+
   
-
-
 
 class Map_page extends Component {
     constructor(props) {
       super(props);
       this.state = {
-          
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
         };
       this.handleChange = this.handleChange.bind(this); 
       
@@ -56,9 +61,29 @@ class Map_page extends Component {
 
     componentDidMount() { 
             
-    }    
+    }   
+    
+    onMarkerClick = (props, marker, e) =>
+      this.setState({
+        selectedPlace: props,
+        activeMarker: marker,
+        showingInfoWindow: true
+    });
+
+    onMapClicked = (props) => {
+      if (this.state.showingInfoWindow) {
+        this.setState({
+          showingInfoWindow: false,
+          activeMarker: null
+        })
+      }
+    };
     
     render() {
+      const style = {
+        width: '91%',
+        height: '70vh'
+      }
       return (
         <React.Fragment>
             <Nav/>
@@ -82,15 +107,49 @@ class Map_page extends Component {
                        
                     </div>
                 </div>
-                <div className="col-8 ml-auto pl-5 pt-3">
+                <div className="col-8 ml-auto pl-5 pt-5 mt-1">
 
-                    <MapWithAMarker
+                    {/* <MapWithAMarker
                       isMarkerShown
                       googleMapURL="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyA1OtYaoJcr9bDQB_YWlkNecXobenhxnpA"
                       containerElement={<div style={{ height: `400px` }} />}
                       mapElement={<div style={{ height: `100%` }} />}
                       loadingElement={<div style={{ height: `100%` }} />}
-                    />
+                    /> */}
+
+                    <Map google={this.props.google} zoom={15}
+                         style={style}
+                         initialCenter={{
+                          lat: 25.033804,
+                          lng: 121.543414
+                        }}
+                    >
+                  
+ 
+                      <Marker onClick={this.onMarkerClick}
+                              title={'The marker`s title will appear as a tooltip.'}
+                              // icon={{
+                              //   url: "http://localhost:3000/uploads/1.png",
+                                
+                              // }}
+                              style={{height:`5px`}}
+                              name={'木村屋 Kimuraya'}
+                              position={{lat: 25.037137, lng: 121.552805}}
+                      />
+                      <Marker onClick={this.onMarkerClick}
+                              name={'Faomii Bakery 法歐米麵包工坊'}
+                              position={{lat: 25.035224, lng: 121.548481}}
+                      />
+
+                      <InfoWindow onClose={this.onInfoWindowClose} 
+                                  marker={this.state.activeMarker}
+                                  visible={this.state.showingInfoWindow}>>
+                          <div>
+                            <h1>{this.state.selectedPlace.name}</h1>
+                          </div>
+                      </InfoWindow>
+                    </Map>
+
 
                 </div>
               </div>
@@ -104,4 +163,6 @@ class Map_page extends Component {
     }
   }
 
-  export default Map_page;
+  export default GoogleApiWrapper({
+    apiKey: ('AIzaSyA1OtYaoJcr9bDQB_YWlkNecXobenhxnpA')
+  })(Map_page)
