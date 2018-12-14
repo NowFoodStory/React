@@ -12,19 +12,20 @@ import AreaSelect from "./Area_select";
 import Commodity from "./Commodity";
 
 class Products extends Component {
+    vals = [];
     constructor(props) {
       super(props);
+     // let vals = [];
       this.state = {
-          search:'',
+            search:"",
             city:"縣市",
-            place:"地區",
+            place:"",
 
-            food_class:[],
+            foodclass:[],
             sellers:[],
             products:[],
         };
-      this.handleChange = this.handleChange.bind(this);
-
+     // this.handleChange = this.handleChange.bind(this);
         // 讀取店家跟商品資料
         fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
             method: 'GET',
@@ -53,7 +54,9 @@ class Products extends Component {
         let value = evt.target.value;
         this.setState({
             [key]: value
-        })
+        },()=>this.filter())
+        // this.filter()
+
         let search = document.querySelector('#search');
         if(search.value!=""){
             search.classList.remove('search_bg');
@@ -68,25 +71,48 @@ class Products extends Component {
     }
 
     //確認勾選狀態
+    
     isCheck = evt => {
-        let checkboxs = document.querySelectorAll('.pl_10 input[type=checkbox]')
-        let vals = [];
-        checkboxs.forEach(function(el){ 
+       // let checkboxs = document.querySelectorAll('.pl_10 input[type=checkbox]')
+        if(evt.target.checked){
+            console.log("true")
+             this.vals.push(evt.target.value);
+        }else{
+            //移除
+            for( var i = 0; i < this.vals.length; i++){                
+                if ( this.vals[i] === evt.target.value) {
+                    this.vals.splice(i, 1); 
+                }
+             }             
+        }
+       
+        this.setState({
+            foodclass:this.vals
+        },()=>this.filter())
+        
+        // this.filter()
+        // checkboxs.forEach(function(el){ 
 
-            if(el.checked){ //如果這個checkbox被勾選
-                vals.push(el.value);
-            }
-            //console.log(el.checked)
-        }) 
-        console.log(vals);
-        let data = {food_class:vals}
+        //     if(el.checked){ //如果這個checkbox被勾選
+        //         vals.push(el.value);
+        //     }
+        //     //console.log(el.checked)
+        // }) 
+        // console.log(vals);
+        // let data = {foodclass:vals}
+        // console.log(data)
+        // 
+        
+    }
 
+    filter(){
+        let data = this.state
         //讀取店家跟商品資料
         fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
             method: 'POST',
             mode:'cors',
             credentials: 'include',
-            body: JSON.stringify(vals),
+            body: JSON.stringify(data),
         }).then(function (response) {       
         return response.json();
         }).then(json => {
@@ -97,11 +123,10 @@ class Products extends Component {
             // products:json.foods
         })     
         console.log(this.state.sellers)
-        console.log(this.state.products)
+        // console.log(this.state.products)
         }).catch(function(err) {
         console.log('失敗囉',err)
         })  
-        
     }
     
     render() {

@@ -15,6 +15,7 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
   
 
 class Map_page extends Component {
+    vals = [];
     constructor(props) {
       super(props);
       this.state = {
@@ -24,10 +25,13 @@ class Map_page extends Component {
 
         sellers:[],
 
+        search:"",
         city:"縣市",
-        place:"地區",
+        place:"",
+
+        foodclass:[],
         };
-      this.handleChange = this.handleChange.bind(this); 
+      // this.handleChange = this.handleChange.bind(this); 
       
       // 讀取店家跟商品資料
       fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
@@ -57,7 +61,7 @@ class Map_page extends Component {
         let value = evt.target.value;
         this.setState({
             [key]: value
-        })
+        },()=>this.filter())
         let search = document.querySelector('#search');
         if(search.value!=""){
             search.classList.remove('search_bg');
@@ -73,37 +77,23 @@ class Map_page extends Component {
 
     //確認勾選狀態
     isCheck = evt => {
-      let checkboxs = document.querySelectorAll('.pl_10 input[type=checkbox]')
-      let vals = [];
-      checkboxs.forEach(function(el){ 
+      if(evt.target.checked){
+        console.log("true")
+         this.vals.push(evt.target.value);
+    }else{
+        //移除
+        for( var i = 0; i < this.vals.length; i++){                
+            if ( this.vals[i] === evt.target.value) {
+                this.vals.splice(i, 1); 
+            }
+         }             
+    }
+   
+    this.setState({
+        foodclass:this.vals
+    },()=>this.filter())
 
-          if(el.checked){ //如果這個checkbox被勾選
-              vals.push(el.value);
-          }
-          //console.log(el.checked)
-      }) 
-      console.log(vals);
-
-      //讀取店家跟商品資料
-      fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
-          method: 'POST',
-          mode:'cors',
-          credentials: 'include',
-          body: JSON.stringify(vals),
-      }).then(function (response) {       
-      return response.json();
-      }).then(json => {
-      console.log(json)
-      console.log('成功囉');
-      this.setState({ 
-          sellers:json,
-          // products:json.foods
-      })     
-      console.log(this.state.sellers)
-      console.log(this.state.products)
-      }).catch(function(err) {
-      console.log('失敗囉',err)
-      })  
+    
       
   }
     
@@ -122,6 +112,30 @@ class Map_page extends Component {
         })
       }
     };
+
+    filter(){
+      let data = this.state
+      //讀取店家跟商品資料
+      fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
+          method: 'POST',
+          mode:'cors',
+          credentials: 'include',
+          body: JSON.stringify(data),
+      }).then(function (response) {       
+      return response.json();
+      }).then(json => {
+      console.log(json)
+      console.log('成功囉');
+      this.setState({ 
+          sellers:json,
+          // products:json.foods
+      })     
+      console.log(this.state.sellers)
+      // console.log(this.state.products)
+      }).catch(function(err) {
+      console.log('失敗囉',err)
+      })  
+  }
     
     render() {
       const style = {
@@ -165,7 +179,8 @@ class Map_page extends Component {
                             <option>地區</option>
                         </select>
                         : this.state.city ==="台北市" ?
-                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">   
+                            <option>選擇地區</option>                     
                             <option>中正區</option>
                             <option>大同區</option>
                             <option>中山區</option>
@@ -178,7 +193,8 @@ class Map_page extends Component {
                             <option>文山區</option>
                         </select>
                         :
-                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place"> 
+                            <option>選擇地區</option>                       
                             <option>新莊區</option>
                             <option>板橋區</option>
                             <option>永和區</option>
