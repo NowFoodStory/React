@@ -79,6 +79,7 @@ class Products extends Component {
             //console.log(el.checked)
         }) 
         console.log(vals);
+        let data = {food_class:vals}
 
         //讀取店家跟商品資料
         fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
@@ -115,7 +116,7 @@ class Products extends Component {
                     <div className="pl_10 mt-5 pr-5">
                         <ul className="pl-0">
                             <li className="d-inline font_2 notoSans color_green font_500">                                
-                                篩選器                                
+                                美食列表                                
                             </li>
                             <li className="d-inline font_2 notoSans color_green mx-2">
                                | 
@@ -141,7 +142,8 @@ class Products extends Component {
                             <option>地區</option>
                         </select>
                         : this.state.city ==="台北市" ?
-                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">
+                            <option>選擇地區</option>                       
                             <option>中正區</option>
                             <option>大同區</option>
                             <option>中山區</option>
@@ -154,7 +156,8 @@ class Products extends Component {
                             <option>文山區</option>
                         </select>
                         :
-                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">  
+                            <option>選擇地區</option>                       
                             <option>新莊區</option>
                             <option>板橋區</option>
                             <option>永和區</option>

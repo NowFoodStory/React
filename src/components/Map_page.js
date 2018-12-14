@@ -7,32 +7,10 @@ import $ from "jquery";
 
 import Nav from "./Nav";
 import Footer from "./Footer";
-// import {
-//   GoogleMap,
-//   Marker,
-//   withGoogleMap,
-//   withScriptjs,
-//   InfoWindow
-// } from "react-google-maps";
-// import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
-
-// import {GoogleApiWrapper} from 'google-maps-react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
  
 
 
-
-
-// const MapWithAMarker = withGoogleMap(props =>
-//   <GoogleMap
-//     defaultZoom={8}
-//     defaultCenter={{ lat: -34.397, lng: 150.644 }}
-//   >
-//     <Marker
-//       position={{ lat: -34.397, lng: 150.644 }}
-//     />
-//   </GoogleMap>
-// );
 
   
 
@@ -43,10 +21,34 @@ class Map_page extends Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
+
+        sellers:[],
+
+        city:"縣市",
+        place:"地區",
         };
       this.handleChange = this.handleChange.bind(this); 
       
-      
+      // 讀取店家跟商品資料
+      fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
+        method: 'GET',
+        mode:'cors',
+        credentials: 'include',
+        body: JSON.stringify(),
+    }).then(function (response) {       
+    return response.json();
+    }).then(json => {
+    console.log(json)
+    console.log('成功囉');
+    this.setState({ 
+        sellers:json,
+        // products:json.foods
+    })     
+    console.log(this.state.sellers)
+    console.log(this.state.products)
+    }).catch(function(err) {
+    console.log('失敗囉',err)
+    })  
 
     }
     
@@ -56,12 +58,54 @@ class Map_page extends Component {
         this.setState({
             [key]: value
         })
+        let search = document.querySelector('#search');
+        if(search.value!=""){
+            search.classList.remove('search_bg');
+        } else{
+            search.classList.add('search_bg');
+        }
               
     }
 
     componentDidMount() { 
             
     }   
+
+    //確認勾選狀態
+    isCheck = evt => {
+      let checkboxs = document.querySelectorAll('.pl_10 input[type=checkbox]')
+      let vals = [];
+      checkboxs.forEach(function(el){ 
+
+          if(el.checked){ //如果這個checkbox被勾選
+              vals.push(el.value);
+          }
+          //console.log(el.checked)
+      }) 
+      console.log(vals);
+
+      //讀取店家跟商品資料
+      fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
+          method: 'POST',
+          mode:'cors',
+          credentials: 'include',
+          body: JSON.stringify(vals),
+      }).then(function (response) {       
+      return response.json();
+      }).then(json => {
+      console.log(json)
+      console.log('成功囉');
+      this.setState({ 
+          sellers:json,
+          // products:json.foods
+      })     
+      console.log(this.state.sellers)
+      console.log(this.state.products)
+      }).catch(function(err) {
+      console.log('失敗囉',err)
+      })  
+      
+  }
     
     onMarkerClick = (props, marker, e) =>
       this.setState({
@@ -95,7 +139,7 @@ class Map_page extends Component {
                     <div className="pl_10 mt-5 pr-5">
                         <ul className="pl-0">
                             <li className="d-inline font_2 notoSans color_70 font_500">                                
-                                <Link className="color_70" to="/products">篩選器</Link>                               
+                                <Link className="color_70" to="/products">美食列表</Link>                               
                             </li>
                             <li className="d-inline font_2 notoSans color_green mx-2">
                                | 
@@ -104,20 +148,88 @@ class Map_page extends Component {
                                 美食地圖                               
                             </li>
                         </ul>
+
+                        <div>
+                            <label for="search" className="notoSans color_70 mt-4 font_1">搜尋</label>                        
+                            <input type="text" className="form-control gray_form search_bg" id="search" placeholder="" value={this.state.search} onChange={this.handleChange} ></input>
+                        </div>
+                        
+                        <select className="form-control notoSans mt-4 gray_form" id="city" value={this.state.city} onChange={this.handleChange}>
+                            <option>縣市</option>
+                            <option>台北市</option>
+                            <option>新北市</option>
+                        </select>
+
+                        {this.state.city ==="縣市" ?
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                            <option>地區</option>
+                        </select>
+                        : this.state.city ==="台北市" ?
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                            <option>中正區</option>
+                            <option>大同區</option>
+                            <option>中山區</option>
+                            <option>松山區</option>
+                            <option>大安區</option>
+                            <option>萬華區</option>
+                            <option>信義區</option>
+                            <option>士林區</option>
+                            <option>北投區</option>                                                       
+                            <option>文山區</option>
+                        </select>
+                        :
+                        <select className="form-control notoSans mt-4 gray_form" value={this.state.place} onChange={this.handleChange} id="place">                       
+                            <option>新莊區</option>
+                            <option>板橋區</option>
+                            <option>永和區</option>
+                            <option>中和區</option>
+                            <option>三重區</option>
+                            <option>蘆洲區</option>
+                            <option>淡水區</option>
+                            <option>樹林區</option>
+                            <option>三峽區</option>
+                        </select>}
+                        <p className="notoSans color_70 mt-4 font_1">
+                            種類
+                        </p>
+                        <div className="form-check mb-2">
+                            <input className="form-check-input" type="checkbox" value="麵包" onChange={this.isCheck}></input>
+                            <label className="form-check-label notoSans" for="check">
+                                麵包
+                            </label>
+                        </div>
+                        <div className="form-check mb-2">
+                            <input className="form-check-input" type="checkbox" value="甜點" onChange={this.isCheck}></input>
+                            <label className="form-check-label notoSans" for="check">
+                                甜點
+                            </label>
+                        </div>
+                        <div className="form-check mb-2">
+                            <input className="form-check-input" type="checkbox" value="飲品" onChange={this.isCheck}></input>
+                            <label className="form-check-label notoSans" for="check">
+                                飲品
+                            </label>
+                        </div>
+                        <div className="form-check mb-2">
+                            <input className="form-check-input" type="checkbox" value="熟食" onChange={this.isCheck}></input>
+                            <label className="form-check-label notoSans" for="check">
+                                熟食
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="壽司" onChange={this.isCheck}></input>
+                            <label className="form-check-label notoSans" for="check">
+                                壽司
+                            </label>
+                        </div>
                        
                     </div>
                 </div>
                 <div className="col-8 ml-auto pl-5 pt-5 mt-1">
 
-                    {/* <MapWithAMarker
-                      isMarkerShown
-                      googleMapURL="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyA1OtYaoJcr9bDQB_YWlkNecXobenhxnpA"
-                      containerElement={<div style={{ height: `400px` }} />}
-                      mapElement={<div style={{ height: `100%` }} />}
-                      loadingElement={<div style={{ height: `100%` }} />}
-                    /> */}
+                    
 
-                    <Map google={this.props.google} zoom={15}
+                    <Map google={this.props.google} zoom={13}
                          onClick={this.onMapClicked}
                          style={style}
                          initialCenter={{
@@ -126,21 +238,20 @@ class Map_page extends Component {
                         }}
                     >
                   
- 
+                  {this.state.sellers.map(sellers=>
                       <Marker onClick={this.onMarkerClick}
-                              title={'The marker`s title will appear as a tooltip.'}
-                              icon={{
-                                url: "http://localhost:3000/uploads/location.svg",
-                              }}
-                              src={'http://localhost:3000/uploads/16121861_1546636742028170_141390345_o.jpg'}
-                              name={'木村屋 Kimuraya'}
-                              position={{lat: 25.037137, lng: 121.552805}}
+                              // title={'The marker`s title will appear as a tooltip.'}
+                              // icon={{
+                              //   url: "http://localhost:3000/uploads/location.svg",
+                              // }}
+                              src={'http://localhost:3000/uploads/'+ sellers.logo_photo}
+                              name={sellers.seller_name}
+                              href={"http://localhost:3001/products_detail/"+ sellers.seller_sid}
+                              position={{lat:sellers.lat, lng: sellers.lng}}
+                              time={"營業時間"+sellers.opening + "-" + sellers.close_time }
                       />
-                      <Marker onClick={this.onMarkerClick}
-                              name={'Faomii Bakery 法歐米麵包工坊'}
-                              position={{lat: 25.035224, lng: 121.548481}}
-                              
-                      />
+                  )}
+                    
 
                       <InfoWindow onClose={this.onInfoWindowClose} 
                                   marker={this.state.activeMarker}
@@ -150,7 +261,8 @@ class Map_page extends Component {
                               <figure className="circle figure">
                                 <img className="w_100" src={this.state.selectedPlace.src}></img>
                               </figure>                             
-                              <h5 className="notoSans text-center"><a className="color_black hover_orange" href="http://localhost:3001/home">{this.state.selectedPlace.name}</a></h5>
+                              <h5 className="notoSans text-center"><a className="color_black hover_orange" href={this.state.selectedPlace.href}>{this.state.selectedPlace.name}</a></h5>
+                              <p className="notoSans text-center letter_space">{this.state.selectedPlace.time}</p>
                             </div>                          
                           </div>
                       </InfoWindow>
