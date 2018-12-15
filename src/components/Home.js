@@ -69,24 +69,24 @@ class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="vh_100 pt_72">
+        <div className="pt_72 pb-5">
           <Nav />
-          <div className="container-fluid reset px_10">
+          <div className="container-fluid reset px_10 mb-4">
             <div className="home_bg">
               <div className="row align-items-center mt-5">
-                <div className="col-7">
+                <div className="col-md-7 order-last order-md-first">
                   <h1 className="notoSans color_70 font_600 font_5">
                     拯救那些被浪費掉的食物 <br />
                     一起守護我們的環境吧
                   </h1>
                 </div>
-                <div className="col-5">
-                  <img data-aos="zoom-in-down" data-aos-duration="1000" src={iphone} calssName="img-fluid" />
+                <div className="col-md-5 order-first order-md-last">
+                  <img data-aos="zoom-in-down" data-aos-duration="1000" src={iphone} className="img-fluid size none" />
                 </div>
               </div>
               <div className="row align-items-center mt-3">
-                <div className="col-3">
-                  <h5 className="notoSans color_70 mb-4 text-justify">
+                <div className="col-md-3">
+                  <h5 className="notoSans color_70 mb-4 text-justify none">
                     輕鬆的搜尋以及預約您週遭附近正在特價的食物
                   </h5>
                   <Link className="text_decoration" to="/signup">
@@ -96,8 +96,8 @@ class Home extends Component {
                   </Link>
                   
                 </div>
-                <div className="col-3">
-                  <h5 className="notoSans color_70 mb-4 text-justify ">
+                <div className="col-md-3">
+                  <h5 className="notoSans color_70 mb-4 text-justify none">
                     將您賣不完的食物上傳到平台讓消費者能夠輕鬆找到
                   </h5>
                   <Link className="text_decoration" to="/signup/form2">

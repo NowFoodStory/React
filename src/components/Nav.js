@@ -66,7 +66,7 @@ class Nav extends Component {
     render() {
       return (
         <React.Fragment>
-          <nav className="navbar navbar-expand-lg nav_color navbar-dark py-3 position-fixed w_100 top_0">
+          <nav className="navbar navbar-expand-xl nav_color navbar-dark py-3 position-fixed w_100 top_0">
             <div className="container-fluid px_10">
             <Link className="navbar-brand notoSans color_white letter_space2 font_3 logo_border px-2 py-0" to="/home">
               限食動態
