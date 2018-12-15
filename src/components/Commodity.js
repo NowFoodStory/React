@@ -11,6 +11,8 @@ import product2 from "../images/louisa_product2.jpg";
 import product3 from "../images/louisa_product3.jpg";
 
 import Footer from "./Footer";
+// import InfiniteScroll from 'react-infinite-scroll-component';
+// import InfiniteScroll from 'react-infinite-scroller';
 
 class Commodity extends Component {
   constructor(props) {
@@ -34,29 +36,11 @@ class Commodity extends Component {
       food_discount:"",
       food_photo:"",
 
+
     };
     this.handleChange = this.handleChange.bind(this);
 
-    // 讀取店家跟商品資料
-    // fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
-    //         method: 'GET',
-    //         mode:'cors',
-    //         credentials: 'include',
-    //         body: JSON.stringify(),
-    //     }).then(function (response) {       
-    //       return response.json();
-    //     }).then(json => {
-    //       console.log(json)
-    //       console.log('成功囉');
-    //       this.setState({ 
-    //         sellers:json,
-    //         // products:json.foods
-    //       })     
-    //       console.log(this.state.sellers)
-    //       console.log(this.state.products)
-    //     }).catch(function(err) {
-    //       console.log('失敗囉',err)
-    //     })  
+    
   }
   handleChange = (evt) => {
     this.setState({
@@ -64,6 +48,13 @@ class Commodity extends Component {
     });        
 }
 
+// fetchMoreData = () => {
+//   setTimeout(() => {
+//     this.setState({
+//       items: this.state.items.concat(Array.from({ length:5 }))
+//     });
+//   }, 1500);
+// };
 
 
   render() {
@@ -87,6 +78,19 @@ class Commodity extends Component {
         </div>
         
 
+      {/* <InfiniteScroll
+                dataLength={this.props.sellers.length}
+                next={this.fetchMoreData}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+                >               */}
+      
+      {/* <InfiniteScroll
+          pageStart={3}
+          // loadMore={loadFunc}
+          hasMore={true}
+          loader={<div className="loader" key={0}>Loading ...</div>}
+      > */}
       {/* ------------以下為一家店------------ */}
       {this.props.sellers.map(sellers=>
       <div key={sellers.seller_sid}>
@@ -151,10 +155,11 @@ class Commodity extends Component {
       </div>
       )}
         {/* ------------以上為一家店------------ */}
-
+      {/* </InfiniteScroll> */}
+      {/* </InfiniteScroll> */}
         </React.Fragment>
         );
       }
     }
-  
+
   export default Commodity;

@@ -747,4 +747,7 @@ pre{
     .line{
         display: none;
     }
+    html{
+        font-size: 0.9rem;
+    }
 }

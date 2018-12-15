@@ -59,6 +59,9 @@ class Map_page extends Component {
     handleChange = (evt) => {
         let key = evt.target.id;
         let value = evt.target.value;
+        if(value=="縣市"){
+          window.location.href="http://localhost:3001/map_page"
+      }
         this.setState({
             [key]: value
         },()=>this.filter())
@@ -115,6 +118,7 @@ class Map_page extends Component {
 
     filter(){
       let data = this.state
+      console.log(data)
       //讀取店家跟商品資料
       fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
           method: 'POST',
@@ -124,7 +128,7 @@ class Map_page extends Component {
       }).then(function (response) {       
       return response.json();
       }).then(json => {
-      console.log(json)
+      // console.log(json)
       console.log('成功囉');
       this.setState({ 
           sellers:json,
@@ -165,7 +169,7 @@ class Map_page extends Component {
 
                         <div>
                             <label for="search" className="notoSans color_70 mt-4 font_1">搜尋</label>                        
-                            <input type="text" className="form-control gray_form search_bg" id="search" placeholder="" value={this.state.search} onChange={this.handleChange} ></input>
+                            <input type="text" className="form-control gray_form search_bg notoSans" id="search" placeholder="" value={this.state.search} onChange={this.handleChange} ></input>
                         </div>
                         
                         <select className="form-control notoSans mt-4 gray_form" id="city" value={this.state.city} onChange={this.handleChange}>
