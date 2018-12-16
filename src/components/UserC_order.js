@@ -97,7 +97,7 @@ class UserC_order_detail extends Component {
                 <UserC_left/>
 
                 <div className="col-9 pl-5">
-                  <div className="row signup_white box_shadow px-5 mb-5 pb-2">
+                  <div className="row signup_white box_shadow vh_75 px-5 mb-5 pb-2">
                     <div className="col">
                       <p className="notoSans font_3 mt-5 mb-0 font_300">
                         訂單紀錄

@@ -91,12 +91,12 @@ class UserC_picked extends Component {
         <React.Fragment>
           
             <Nav />
-            <div className="container-fluid pt_72 user_bg ">
+            <div className="container-fluid pt_72 user_bg vh_100">
               <div class="row px_10 mt-5">
                 <UserC_left/>
 
                 <div className="col-9 pl-5">
-                  <div className="row signup_white box_shadow px-5 mb-5">
+                  <div className="row signup_white box_shadow vh_75 px-5 mb-5">
                     <div className="col">
                       <p className="notoSans font_3 mt-5 mb-0 font_300">
                         訂單紀錄
@@ -108,7 +108,6 @@ class UserC_picked extends Component {
                             </div>                           
                         </p>
                                            
-                      <hr/>
 
                       <div className="row">
                         <div className="col">

@@ -41,6 +41,7 @@ class Products_detail extends Component {
       IG:"",
       Web:"",
       Introduction:"",
+      distance:"",
 
       products:[],
 
@@ -72,7 +73,7 @@ class Products_detail extends Component {
         IG:json.sellerData[0].IG,
         Web:json.sellerData[0].Web,
         Introduction:json.sellerData[0].Introduction,
-
+        distance:json.sellerData[0].distance,
         products:json.shopData,
       })    
     }).catch(function(err) {
@@ -280,7 +281,7 @@ class Products_detail extends Component {
                   </p>
                   <p className="notoSans color_70">
                     <img className="img-fluid icon_size" src={location} />{" "}
-                    150公尺{" "}
+                    {this.state.distance}公里{" "}
                     <img className="img-fluid icon_size ml-2" src={time} /> {this.state.opening}
                     - {this.state.close_time}
                     <img
