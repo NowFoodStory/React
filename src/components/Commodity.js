@@ -108,7 +108,7 @@ class Commodity extends Component {
               4.2★★★★☆  <span className="color_70 ml-2">(54)</span>
             </p>
             <p className="notoSans color_70">
-              <img className="img-fluid icon_size" src={location}></img> 150公尺  <img className="img-fluid icon_size ml-2" src={time}></img> {sellers.opening} - {sellers.close_time}
+              <img className="img-fluid icon_size" src={location}></img> {sellers.distance}公里  <img className="img-fluid icon_size ml-2" src={time}></img> {sellers.opening} - {sellers.close_time}
             </p>
           </div>
           <div className="col-3 align-self-center">

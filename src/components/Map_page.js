@@ -130,10 +130,15 @@ class Map_page extends Component {
       }).then(json => {
       // console.log(json)
       console.log('成功囉');
-      this.setState({ 
-          sellers:json,
-          // products:json.foods
-      })     
+      if (json.resultCode==200){
+        this.setState({ 
+            sellers:json.result,
+        })   
+    }else{
+        this.setState({ 
+            sellers:[]
+        })   
+    }    
       console.log(this.state.sellers)
       // console.log(this.state.products)
       }).catch(function(err) {
