@@ -114,6 +114,7 @@ class Products extends Component {
     filter(){
         window.scrollTo(0, 0)
         let data = this.state
+        console.log(data)
         //讀取店家跟商品資料
         fetch('http://localhost/foodstory_end/PHP-and-SQL-master/php/shoppingAPI/shoppingAPI.php', {
             method: 'POST',

@@ -9,7 +9,7 @@ import time from "../images/time-icon.svg";
 import product1 from "../images/louisa_product1.jpg";
 import product2 from "../images/louisa_product2.jpg";
 import product3 from "../images/louisa_product3.jpg";
-
+import AOS from 'aos';
 import Footer from "./Footer";
 // import InfiniteScroll from 'react-infinite-scroll-component';
 // import InfiniteScroll from 'react-infinite-scroller';
@@ -93,7 +93,7 @@ class Commodity extends Component {
       > */}
       {/* ------------以下為一家店------------ */}
       {this.props.sellers.map(sellers=>
-      <div key={sellers.seller_sid}>
+      <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="600" key={sellers.seller_sid}>
         <div className="row mt-3 ml-5">
           <div className="col-2">
             <figure className="circle figure">
@@ -161,5 +161,5 @@ class Commodity extends Component {
         );
       }
     }
-
+    AOS.init()
   export default Commodity;

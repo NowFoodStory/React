@@ -129,19 +129,19 @@ class Home extends Component {
             簡單三步驟，你也能為環境盡一份力
         </div>
         <div className="row reset mt-5 notoSans px_10 justify-content-center">
-          <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-3 vh_50 border text-center py-4 upper">
+          <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-md-3 vh_50 border mx-4 text-center py-4 upper">
             <img className="vh_25" src={member}></img>
             <p className="mt-3 font_1 text-left mx-2">
               <span className="font_4 font_600">1.</span>註冊成為我們的會員
             </p>
           </div>
-          <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-3 vh_50 border mx-5 text-center py-4 upper">
+          <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-md-3 vh_50 border mx-4 text-center py-4 upper">
             <img className="vh_25" src={search}></img>
             <p className="mt-3 font_1 text-left mx-2">
               <span className="font_4 font_600">2.</span>到美食列表去搜尋附近有哪些店家正在PO出便宜的美食
             </p>           
           </div>
-          <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-3 vh_50 border text-center py-4 upper">
+          <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="col-md-3 vh_50 border mx-4 text-center py-4 upper">
             <img className="vh_25" src={order}></img>
             <p className="mt-3 font_1 text-left mx-2">
               <span className="font_4 font_600">3.</span>選好想吃的食物下訂後就可以過去領取囉
@@ -155,7 +155,7 @@ class Home extends Component {
           </p> 
         </div>
         <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="row reset px_10 mt-4 justify-content-between mb-5 pb-5">
-          <div className="col-7 vh_65 relative">
+          <div className="col-lg-7 vh_65 relative">
             <img className="img-fluid vh_65 object_fit w_100" src={"http://localhost:3000/uploads/" + this.state._blog_photo}></img>
             <div className="white_bg reset p-2 absolute bottom_0 right_0 col-8 notoSans translate">
               <div className="white_bg2 p-4">
@@ -172,22 +172,8 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="col-4 notoSans">
-            {/* <div className="row">
-              <img className="icon_size1 col-2" src={arrow}></img>
-              <p className="font_2 col-10 px-0 letter_space hover_orange pointer">            
-                香港勞團回收剩食 盼需要的人都能「食德好」<br/>
-                <span className="font_1 color_70">文/陳倢伃</span>
-              </p>
-            </div>
-
-            <div className="row mt-2">
-              <img className="icon_size1 col-2" src={arrow}></img>
-              <p className="font_2 col-10 px-0 letter_space hover_orange pointer">            
-                德國拯救剩食運動擴散來台 「享食台灣」正發芽<br/>
-                <span className="font_1 color_70">文/彭瑞祥</span>
-              </p>
-            </div> */}
+          <div className="col-lg-4 notoSans">
+            
 
             {this.state.blogs.map(blogs=>
             <div key={blogs.blog_sid} className="row mt-2 mb-4">

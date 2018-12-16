@@ -59,9 +59,9 @@ class Map_page extends Component {
     handleChange = (evt) => {
         let key = evt.target.id;
         let value = evt.target.value;
-        if(value=="縣市"){
-          window.location.href="http://localhost:3001/map_page"
-      }
+    //     if(value=="縣市"){
+    //       window.location.href="http://localhost:3001/map_page"
+    //   }
         this.setState({
             [key]: value
         },()=>this.filter())
@@ -249,7 +249,7 @@ class Map_page extends Component {
 
                     
 
-                    <Map google={this.props.google} zoom={13}
+                    <Map google={this.props.google} zoom={12}
                          onClick={this.onMapClicked}
                          style={style}
                          initialCenter={{

@@ -243,7 +243,7 @@ class UserB_commodity extends Component {
                                         商品數量<span className="food_quantity" data-food_quantity={products.food_quantity}>{products.food_quantity}</span>
                                     </p>
                                     <p data-food_price={products.food_price} className="notoSans color_70 font_1 mr-2 food_price">
-                                        已售出<span>2</span>
+                                        已上架
                                     </p>
                                 </div>
                             </div>
