@@ -128,7 +128,14 @@ class Products_detail extends Component {
       div.find('.price').text(v*price)
       
       if(me.my_products[food_sid]['food_quantity']<=1){
-        me.all_products.pop(me.my_products[food_sid])
+        //移除
+        for(var i=0;i<me.all_products.length;i++){ 
+          if(me.all_products[i]===me.my_products[food_sid]){
+            me.all_products.splice(i,1)
+          }
+        }
+        console.log(me.all_products)
+        // me.all_products.pop(me.my_products[food_sid])
       } else {
         me.my_products[food_sid]['food_quantity'] = v
       }

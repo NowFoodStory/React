@@ -111,7 +111,7 @@ class Home extends Component {
           </div>
         </div>
 
-        <div className="signup_bg2 over_flow">
+        <div className="green_bg over_flow">
           <p data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000" className="row notoSans font_4 letter_space1 justify-content-center pt-5 color_white">
             關於我們的使命
           </p>
